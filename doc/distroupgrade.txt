@@ -1,0 +1,3 @@
+*distroupdate.txt*                                  distro upgrader for neovim.
+
+Help wanted to write readme.md in .txt format.

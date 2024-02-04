@@ -10,49 +10,21 @@ Enable the commands you want to use the next way.
     event = "VeryLazy",
     opts = {},
     config = function()
-        -- Nvim updater commands
-        -- If there is any command you don't need, you can delete it here.
-        local updater = require("distroupdate.utils.updater")
-        cmd(
-          "NvimChangelog",
-          function() updater.changelog() end,
-          { desc = "Check Nvim Changelog" }
-        )
-        cmd(
-          "NvimUpdatePlugins",
-          function() updater.update_packages() end,
-          { desc = "Update Plugins and Mason" }
-        )
-        cmd(
-          "NvimRollbackCreate",
-          function() updater.create_rollback(true) end,
-          { desc = "Create a rollback of '~/.config/nvim'." }
-        )
-        cmd(
-          "NvimRollbackRestore",
-          function() updater.rollback() end,
-          { desc = "Restores '~/.config/nvim' to the last rollbacked state." }
-        )
-        cmd(
-          "NvimFreezePluginVersions",
-          function() updater.generate_snapshot(true) end,
-          { desc = "Lock package versions (only lazy, not mason)." }
-        )
-        cmd(
-          "NvimUpdateConfig", function() updater.update() end,
-          { desc = "Update Nvim distro" }
-        )
-        cmd(
-          "NvimVersion",
-          function() updater.version() end,
-          { desc = "Check Nvim distro Version" }
-        )
-        cmd(
-          "NvimReload",
-          function() require("distroupdate.utils").reload() end,
-          { desc = "Reload Nvim without closing it (Experimental)" }
-        )
+      -- Hot reload on config change (optional).
+      autocmd({ "BufWritePost" }, {
+        desc = "When writing a buffer, :NvimReload if the buffer is a config file.",
+        callback = function()
+          local filesThatTriggerReload = {
+            vim.fn.stdpath "config" .. "lua/base/1-options.lua",  -- use your file
+            vim.fn.stdpath "config" .. "lua/base/4-mappings.lua", -- use your file
+          }
 
+          local bufPath = vim.fn.expand "%:p"
+          for _, filePath in ipairs(filesThatTriggerReload) do
+            if filePath == bufPath then vim.cmd "NvimReload" end
+          end
+        end,
+      })
     end
   },
 ```
