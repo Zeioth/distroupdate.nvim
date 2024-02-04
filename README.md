@@ -61,4 +61,5 @@ Most of the code included in this plugin come from AstroNvim, adapted for the fo
 
 ## Roadmap
 * Remove the utils that are not actually necessary from `utils/init.lua`
+* Create actual configuration options, instead of using lazy `config`.
 * On NormalNvim mason plugin, add a checking to define the CMD only if distroupdate is present.
