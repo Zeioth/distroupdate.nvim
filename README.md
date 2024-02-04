@@ -4,7 +4,7 @@ Neovim plugin to upgrade your current neovim distro from its github remote
 ## How to use
 Enable the commands you want to use the next way.
 
-```
+```lua
   {
     "Zeioth/distroupgrade.nvim",
     event = "VeryLazy",
