@@ -60,6 +60,6 @@ Enable the commands you want to use the next way.
 Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support the projects if you enjoy this plugin.
 
 ## Roadmap
-* Remove the utils that are not actually necessary from `utils/init.lua`
+* Remove the utils that are not actually necessary from `utils/init.lua` → Also, remove from `utils/init.lua` the things that were only used for the updater.
 * Create actual configuration options, instead of using lazy `config`.
 * On NormalNvim mason plugin, add a checking to define the CMD only if distroupdate is present.
