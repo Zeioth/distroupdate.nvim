@@ -10,6 +10,20 @@ Enable the commands you want to use the next way.
     event = "VeryLazy",
     opts = {},
     config = function()
+      -- Options
+      base.updater = {
+        options = { remote = "origin", channel = "stable" }, -- 'nightly', or 'stable'
+        snapshot = { module = "lazy_snapshot", path = vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua" },
+        rollback_file = vim.fn.stdpath "cache" .. "/rollback.lua",
+      
+        -- You can update your nvim config from your repo by using ':NvimUpdateConfig'.
+        -- This comes handy if you use nvim in more than one device.
+        -- You can use 'stable_version_release' to specify the version to install.
+        -- If nil, :NvimUpdateConfig will use the latest available tag release of your
+        -- git repository, starting by 'v', for example, "v1.0"
+        stable_version_release = nil,
+      }
+
       -- Hot reload on config change (optional).
       autocmd({ "BufWritePost" }, {
         desc = "When writing a buffer, :NvimReload if the buffer is a config file.",
