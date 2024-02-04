@@ -1,5 +1,5 @@
 # distroupdate.nvim
-Neovim plugin to upgrade your current neovim distro from its github remote
+Neovim plugin to upgrade your current distro from its github remote
 
 ## How to use
 Enable the commands you want to use the next way.
