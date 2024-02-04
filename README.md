@@ -57,7 +57,7 @@ Enable the commands you want to use the next way.
 | **:NvimVersion** | Prints the commit number of the current NormalNvim version. |
 
 ## Credits
-Most of the code included in this plugin come from AstroNvim, adapted for the fork NormalNvim. So please support the projects if you enjoy this plugin.
+Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support the projects if you enjoy this plugin.
 
 ## Roadmap
 * Remove the utils that are not actually necessary from `utils/init.lua`
