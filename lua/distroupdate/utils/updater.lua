@@ -19,8 +19,8 @@
 --      -> attempt_update      → helper for update.
 --      -> update              → used by :NvimUpdateConfig.
 
-local utils = require "base.utils"
-local git = require "base.utils.git"
+local utils = require "distroupdate.utils"
+local git = require "distroupdate.utils.git"
 
 local M = {}
 
@@ -112,7 +112,7 @@ local cancelled_message = { { "Update cancelled", "WarningMsg" } }
 --- Sync Packer and then update Mason
 function M.update_packages()
   require("lazy").sync { wait = true }
-  require("base.utils.mason").update_all()
+  require("distroupdate.utils.mason").update_all()
 end
 
 --- Create a table of options for the currently installed Nvim version
@@ -168,7 +168,7 @@ end
 --- @param opts? table the settings to use for the update
 function M.update(opts)
   if not opts then opts = base.updater.options end
-  opts = require("base.utils").extend_tbl(
+  opts = require("distroupdate.utils").extend_tbl(
     { remote = "origin", show_changelog = true, auto_quit = false },
     opts
   )
@@ -295,24 +295,8 @@ function M.update(opts)
     end -- attempt an update
     local updated = attempt_update(target, opts)
     -- check for local file conflicts and prompt user to continue or abort
-    if
-        not updated
-        and not opts.skip_prompts
-        and not confirm_prompt {
-          {
-            "Unable to pull due to local modifications to base files.\nReset local files and continue?",
-            "Error",
-          },
-          { "Reset local files and continue?" },
-        }
-    then
-      echo(cancelled_message)
-      return
-      -- if continued and there were errors reset the base config and attempt another update
-    elseif not updated then
-      git.hard_reset(source)
-      updated = attempt_update(target, opts)
-    end
+    git.hard_reset(source)
+    updated = attempt_update(target, opts)
     -- if update was unsuccessful throw an error
     if not updated then
       vim.api.nvim_err_writeln "Error occurred performing update"

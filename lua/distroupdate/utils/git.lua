@@ -45,7 +45,7 @@ end
 ---@param args string|string[] the git arguments.
 ---@return string|nil # The result of the command or nil if unsuccessful.
 function git.cmd(args, ...)
-  local utils = require "base.utils"
+  local utils = require "distroupdate.utils"
   local config_dir = vim.fn.stdpath "config"
   if type(args) == "string" then args = { args } end
   return utils.cmd(vim.list_extend({ "git", "-C", config_dir }, args), ...)
