@@ -50,4 +50,5 @@ Most of the code included in this plugin come from AstroNvim, modified for the f
 * TODO: Document the new added options.
 * TODO: We should create a autocmd for NvimReload by default on setup().
 * TODO: We should expose the option `hot_reload_extra_behavior` which gets a function, in case someone wants to do something extra in the autocmd, like reloading its nvim theme.
+* TODO: In NormalNvim, adap the format of base.updater to the format of distroupdate.nvim, so it matches, and uses its settings if present.
 * TODO: Test all functions again.
