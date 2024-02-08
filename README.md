@@ -19,7 +19,7 @@ Enable the commands you want to use the next way.
     },
     config = function()
       -- Hot reload on config change (optional).
-      autocmd({ "BufWritePost" }, {
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
         desc = ":NvimReload the files defined on opts.hot_reload_files on write.",
         callback = function() vim.cmd "NvimReload" end,
       })
