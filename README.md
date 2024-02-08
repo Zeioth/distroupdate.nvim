@@ -30,6 +30,7 @@ Enable the commands you want to use the next way.
 | **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
 | **release_tag** | `nil` | If this option is setted, the option `channel` will be ignored, and the updater will use release you specify. The format must be semantic versioning, like: `v1.0`. |
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded, every time you write them. This way you can see the changes reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
+| **hot_reload_extra_behavior** | `function() end` | (optional) Extra things to do after all files are hot reloaded. This is handy if you want to re-apply your nvim and status bar theme. |
 
 ## Commands
 
