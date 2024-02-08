@@ -11,8 +11,8 @@ Enable the commands you want to use the next way.
     opts = {
       remote = "origin",
       channel = "stable",
-      snapthot_file = vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua",
-      snapthot_module = "lazy_snapshot",
+      snapshot_file = vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua",
+      snapshot_module = "lazy_snapshot",
       rollback_file = vim.fn.stdpath "cache" .. "/rollback.lua",
       release_tag = nil,
       hot_reload_files = opts.hot_reload_files or { "base.1-options", "base.4-mappings" }
@@ -26,6 +26,18 @@ Enable the commands you want to use the next way.
     end
   },
 ```
+
+## Options
+
+|  Option             | Default |Description                             |
+|---------------------|---------|----------------------------------------|
+| **remote** | origin | The github remote of your distro repository. |
+| **channel** | `stable` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
+| **snapshot_file** | `<nvim_config>/lua/lazy_snapshot.lua"` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
+| **snapshop_module** | `lazy_snapshop` | Name of the snapshot_file. TODO: We could programatically remove this option. |
+| **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
+| **release_tag** | `nil` | If this option is setted, the option `channel` will be ignored, and the updater will use release you specify. The format must be semantic versioning, like: `v1.0`. |
+| **hot_reload_files** | `{}` | The files included, will be hot reloaded, every time you write them. This way you can see the changes reflected without having to restart nvim. For example: `{ my_nvim_opts_file.lua, my_nvim_mappings_file.lua}`. Be aware this feature is experimental, and might not work in all cases yet. |
 
 ## Commands
 
@@ -47,7 +59,6 @@ Most of the code included in this plugin come from AstroNvim, modified for the f
 * placeholder
 
 ## Roadmap
-* TODO: The mason update command is still currently failing on NormalNvim when using this packge (check it out.)
 * TODO: Document the new added options.
 * TODO: We should create a autocmd for NvimReload by default on setup().
 * TODO: We should expose the option `hot_reload_extra_behavior` which gets a function, in case someone wants to do something extra in the autocmd, like reloading its nvim theme.
