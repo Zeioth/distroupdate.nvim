@@ -81,6 +81,5 @@ Most of the code included in this plugin come from AstroNvim, modified for the f
 * placeholder
 
 ## Roadmap
-* TODO: Remove the option snapshop_module by creating this variable programatically in execution time.
 * TODO: Re-order config options alphabetically.
 * TODO: Test all functions again.
