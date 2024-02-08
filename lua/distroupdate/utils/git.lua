@@ -1,13 +1,7 @@
 --- ### Git api
 --
 --  DESCRIPTION:
---  Helpers to easily perform the git operations we need.
---
---  We use this on ./updater.lua
---  to search for the latest version on your git repository
---  when using the command :NvimUpdateConfig
---
---  So if you you decide to delete the updater, feel free to delete this too.
+--  Functions used by the updater to control git.
 
 --    Helpers:
 --      -> git.cmd              → Used to run git commands.

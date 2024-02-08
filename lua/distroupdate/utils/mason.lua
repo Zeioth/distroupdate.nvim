@@ -1,18 +1,11 @@
 --- ### Mason utils
 --
 --  DESCRIPTION:
---  Functions called by the plugin mason in ../../plugins/3-dev-core.lua
---
---  These couple functions are a re-implementation of mason functions for
---  better UX. Frindly notifications and stuff, so you know what's going on.
---
---  While you could technically delete this file, we encourage you to keep it
---  unless it become deprecated it the future or cause any kind of trouble.
+--  Non critical functions used by the updater to have better Mason integration.
 
 --    Functions:
 --      -> update      → update a single mason package.
 --      -> updateall   → update all mason packages.
---
 
 local M = {}
 

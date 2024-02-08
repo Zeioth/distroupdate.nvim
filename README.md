@@ -8,33 +8,22 @@ Enable the commands you want to use the next way.
   {
     "Zeioth/distroupgrade.nvim",
     event = "VeryLazy",
-    opts = {},
+    opts = {
+      remote = "origin",
+      channel = "stable",
+      snapthot_file = vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua",
+      snapthot_module = "lazy_snapshot",
+      rollback_file = vim.fn.stdpath "cache" .. "/rollback.lua",
+      release_tag = nil,
+      hot_reload_files = opts.hot_reload_files or { "base.1-options", "base.4-mappings" }
+    },
     config = function()
-      -- Options
-      base.updater = {
-        options = { remote = "origin", channel = "stable" }, -- 'nightly', or 'stable'
-        snapshot = { module = "lazy_snapshot", path = vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua" },
-        rollback_file = vim.fn.stdpath "cache" .. "/rollback.lua",
-
-        -- You can update your nvim config from your repo by using ':NvimUpdateConfig'.
-        -- This comes handy if you use nvim in more than one device.
-        -- You can use 'stable_version_release' to specify the version to install.
-        -- If nil, :NvimUpdateConfig will use the latest available tag release of your
-        -- git repository, starting by 'v', for example, "v1.0"
-        stable_version_release = nil,
-      }
-
       -- Hot reload on config change (optional).
       autocmd({ "BufWritePost" }, {
-        desc = "When writing a buffer, :NvimReload if the buffer is a config file.",
+        desc = ":NvimReload if the buffer is a file to be hot reloaded.",
         callback = function()
-          local filesThatTriggerReload = {
-            vim.fn.stdpath "config" .. "lua/base/1-options.lua",  -- use your file
-            vim.fn.stdpath "config" .. "lua/base/4-mappings.lua", -- use your file
-          }
-
           local bufPath = vim.fn.expand "%:p"
-          for _, filePath in ipairs(filesThatTriggerReload) do
+          for _, filePath in ipairs(hot_reload_files) do
             if filePath == bufPath then vim.cmd "NvimReload" end
           end
         end,
@@ -65,3 +54,4 @@ Most of the code included in this plugin come from AstroNvim, modified for the f
 * Remove the utils that are not actually necessary from `utils/init.lua` → Also, remove from `utils/init.lua` the things that were only used for the updater.
 * Create actual configuration options, instead of using lazy `config`.
 * On NormalNvim mason plugin, add a checking to define the CMD only if distroupdate is present.
+

@@ -44,7 +44,7 @@ end
 ---@return table # The plugin specification table of the snapshot
 function M.generate_snapshot(write)
   local file
-  local prev_snapshot = require(base.updater.snapshot.module)
+  local prev_snapshot = require(vim.g.distroupdate_config.snapthot_module)
   for _, plugin in ipairs(prev_snapshot) do
     prev_snapshot[plugin[1]] = plugin
   end
@@ -56,7 +56,7 @@ function M.generate_snapshot(write)
     if commit then return vim.trim(commit) end
   end
   if write == true then
-    file = assert(io.open(base.updater.snapshot.path, "w"))
+    file = assert(io.open(vim.g.distroupdate_config.snapthot_file, "w"))
     file:write "return {\n"
   end
   local snapshot = vim.tbl_map(function(plugin)
@@ -89,7 +89,7 @@ end
 --- @return string # The current Nvim version string
 function M.version(quiet)
   local version = git.current_version(false) or "unknown"
-  if base.updater.options.channel ~= "stable" then
+  if vim.g.distroupdate_config.channel ~= "stable" then
     version = ("nightly (%s)"):format(version)
   end
   if version and not quiet then utils.notify("Version: " .. version) end
@@ -125,7 +125,7 @@ function M.create_rollback(write)
   snapshot.remotes = { [snapshot.remote] = git.remote_url(snapshot.remote) }
 
   if write == true then
-    local file = assert(io.open(base.updater.rollback_file, "w"))
+    local file = assert(io.open(vim.g.distroupdate_config.rollback_file, "w"))
     file:write(
       "return " .. vim.inspect(snapshot, { newline = " ", indent = "" })
     )
@@ -143,7 +143,7 @@ end
 --- Nvim's rollback to saved previous version function
 function M.rollback()
   local rollback_avail, rollback_opts =
-      pcall(dofile, base.updater.rollback_file)
+      pcall(dofile, vim.g.distroupdate_config.rollback_file)
   if not rollback_avail then
     utils.notify("No rollback file available", vim.log.levels.ERROR)
     return
@@ -167,7 +167,10 @@ end
 --- Nvim's updater function
 --- @param opts? table the settings to use for the update
 function M.update(opts)
-  if not opts then opts = base.updater.options end
+  if not opts then opts = {
+    vim.g.distroupdate_config.remote,
+    vim.g.distroupdate_config.channel
+  } end
   opts = require("distroupdate.utils").extend_tbl(
     { remote = "origin", show_changelog = true, auto_quit = false },
     opts
@@ -244,7 +247,7 @@ function M.update(opts)
   local source = git.local_head() -- calculate current commit
   local target                    -- calculate target commit
   if is_stable then               -- if stable get tag commit
-    local version_search = base.updater.stable_version_release or "latest"
+    local version_search = vim.g.distroupdate_config.release_tag or "latest"
     opts.version = git.latest_version(git.get_versions(version_search))
     if not opts.version then -- continue only if stable version is found
       vim.api.nvim_err_writeln("Error finding version: " .. version_search)
