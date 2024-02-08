@@ -44,7 +44,8 @@ end
 ---@return table # The plugin specification table of the snapshot
 function M.generate_snapshot(write)
   local file
-  local prev_snapshot = require(vim.g.distroupdate_config.snapthot_module)
+  local snapshot_filename =  vim.fn.fnamemodify(vim.g.distroupdate_config.snapshot_file, ':t:r')
+  local prev_snapshot = require(snapshot_filename)
   for _, plugin in ipairs(prev_snapshot) do
     prev_snapshot[plugin[1]] = plugin
   end
@@ -56,7 +57,7 @@ function M.generate_snapshot(write)
     if commit then return vim.trim(commit) end
   end
   if write == true then
-    file = assert(io.open(vim.g.distroupdate_config.snapthot_file, "w"))
+    file = assert(io.open(vim.g.distroupdate_config.snapshot_file, "w"))
     file:write "return {\n"
   end
   local snapshot = vim.tbl_map(function(plugin)
