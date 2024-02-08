@@ -91,7 +91,8 @@ function M.update(pkg_names, auto_install)
   end))
 end
 
---- Update all packages in Mason
+--- This function works the same as the Mason command `:MasonUpdateAll`,
+--- but with better notifications and support for Mason registries.
 function M.update_all()
   local registry_avail, registry = pcall(require, "mason-registry")
   if not registry_avail then
