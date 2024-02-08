@@ -49,9 +49,5 @@ Enable the commands you want to use the next way.
 Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support the projects if you enjoy this plugin.
 
 ## Roadmap
-* TODO: Write unit tests so we can run the commands one by one and see if they work ok.
-* ISSUE: Some parts of the updater still rely on NormalNvim `2-lazy.lua` → `base.updater` table, so we should provide a distroupdater option to allow users to define such options for the updater (and tell users to use the values they use for lazy, if any), as that value has to be there no matter what, because Lazy is loaded before any other plugin.
-* Remove the utils that are not actually necessary from `utils/init.lua` → Also, remove from `utils/init.lua` the things that were only used for the updater.
-* Create actual configuration options, instead of using lazy `config`.
-* On NormalNvim mason plugin, add a checking to define the CMD only if distroupdate is present.
-
+* TODO: Document the new added options.
+* TODO: Test all functions again.
