@@ -20,13 +20,8 @@ Enable the commands you want to use the next way.
     config = function()
       -- Hot reload on config change (optional).
       autocmd({ "BufWritePost" }, {
-        desc = ":NvimReload if the buffer is a file to be hot reloaded.",
-        callback = function()
-          local bufPath = vim.fn.expand "%:p"
-          for _, filePath in ipairs(hot_reload_files) do
-            if filePath == bufPath then vim.cmd "NvimReload" end
-          end
-        end,
+        desc = ":NvimReload the files defined on opts.hot_reload_files on write.",
+        callback = function() vim.cmd "NvimReload" end,
       })
     end
   },
@@ -48,6 +43,10 @@ Enable the commands you want to use the next way.
 ## Credits
 Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support the projects if you enjoy this plugin.
 
+## FAQ
+* placeholder
+
 ## Roadmap
 * TODO: Document the new added options.
 * TODO: Test all functions again.
+
