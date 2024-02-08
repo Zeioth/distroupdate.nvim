@@ -31,7 +31,6 @@ Enable the commands you want to use the next way.
 
 |  Name               | Default value |Description                             |
 |---------------------|---------------|----------------------------------------|
-| **remote** | `origin` | The github remote of your distro repository. |
 | **channel** | `stable` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
 | **snapshot_file** | `<nvim_config>/lua/lazy_snapshot.lua"` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
 | **snapshop_module** | `lazy_snapshop` | Name of the snapshot_file. TODO: We could programatically remove this option. |
