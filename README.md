@@ -16,14 +16,7 @@ Enable the commands you want to use the next way.
       rollback_file = vim.fn.stdpath "cache" .. "/rollback.lua",
       release_tag = nil,
       hot_reload_files = opts.hot_reload_files or { "base.1-options", "base.4-mappings" }
-    },
-    config = function()
-      -- Hot reload on config change (optional).
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        desc = ":NvimReload the files defined on opts.hot_reload_files on write.",
-        callback = function() vim.cmd "NvimReload" end,
-      })
-    end
+    }
   },
 ```
 
