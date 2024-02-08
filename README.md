@@ -52,6 +52,36 @@ Enable the commands you want to use the next way.
 | **:NvimFreezePluginVersions** | Saves your current plugin versions into `lazy_versions.lua` in your config directory. If you are using the `stable` updates channel, this file will be used to decide what plugin versions will be installed, and even if you manually try to update your plugins using lazy package manager, the versions file will be respected. If you are using the `nightly` channel, the first time you open nvim, the versions from `lazy_versions.lua` will be installed, but it will be possible to download the last versions by manually updating your plugins with lazy. Note that after running this command, you can manually modify `lazy_versions.lua` in case you only want to freeze some plugins. |
 | **:NvimVersion** | Prints the commit number of the current NormalNvim version. |
 
+## Example of a real config
+
+```lua
+ -- distroupdate.nvim [distro update]
+  -- https://github.com/Zeioth/distroupdate.nvim
+  {
+    "Zeioth/distroupdate.nvim",
+    event = "VeryLazy",
+    opts = {
+      remote = "origin",
+      channel = "stable",
+      release_tag = nil,
+      hot_reload_files = { "base.1-options", "base.4-mappings" }
+    },
+    config = function(opts)
+      require("distroupdate").setup(opts)
+
+      -- Enable hot reload (optional).
+      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+        desc = ":NvimReload if the buffer is a file to be hot reloaded.",
+        callback = function()
+          vim.cmd "NvimReload"                                               -- Reload files in opts.hot_reload_files
+          vim.cmd ":silent! doautocmd ColorScheme"                           -- Also for heirline colorscheme
+          vim.cmd(":silent! colorscheme " .. base.default_colorscheme)       -- Also for nvim colorscheme
+        end,
+      })
+    end
+  },
+```
+
 ## Credits
 Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support the projects if you enjoy this plugin.
 
