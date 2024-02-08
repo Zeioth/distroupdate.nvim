@@ -1,7 +1,7 @@
 -- This plugin is a neovim distro updater.
 
 local cmd = vim.api.nvim_create_user_command
-local config = require("dooku.config")
+local config = require("distroupdate.config")
 local updater = require("distroupdate.utils.updater")
 
 local M = {}
@@ -49,6 +49,21 @@ function M.setup(opts)
     function() require("distroupdate.utils").reload() end,
     { desc = "Reload Nvim without closing it (Experimental)" }
   )
+
+  -- Autocmds
+  vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    desc = ":NvimReload if any of the buffers in the option `hot_reload_files` are written.",
+    callback = function()
+      local bufPath = vim.fn.expand "%:p"
+      for _, filePath in ipairs(opts.hot_reload_files) do
+        if filePath == bufPath then
+          vim.cmd "NvimReload"
+          opts.hot_reload_extra_behavior()
+        end
+      end
+    end
+  })
+
 end
 
 return M
