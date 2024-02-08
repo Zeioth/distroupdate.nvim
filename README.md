@@ -8,15 +8,7 @@ Enable the commands you want to use the next way.
   {
     "Zeioth/distroupgrade.nvim",
     event = "VeryLazy",
-    opts = {
-      remote = "origin",
-      channel = "stable",
-      snapshot_file = vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua",
-      snapshot_module = "lazy_snapshot",
-      rollback_file = vim.fn.stdpath "cache" .. "/rollback.lua",
-      release_tag = nil,
-      hot_reload_files = opts.hot_reload_files or { "base.1-options", "base.4-mappings" }
-    }
+    opts = {}
   },
 ```
 
