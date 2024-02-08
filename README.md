@@ -28,7 +28,7 @@ Enable the commands you want to use the next way.
 | **snapshot_file** | `<nvim_config>/lua/lazy_snapshot.lua"` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
 | **snapshop_module** | `lazy_snapshop` | Name of the snapshot_file. TODO: We could programatically remove this option. |
 | **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
-| **release_tag** | `nil` | If this option is setted, the option `channel` will be ignored, and the updater will use release you specify. The format must be semantic versioning, like: `v1.0`. |
+| **release_tag** | `nil` | (optional) If this option is used, the option `channel` will be ignored, and the updater will use release you specify. The format must be semantic versioning, like: `v1.0`. |
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded, every time you write them. This way you can see the changes reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
 | **hot_reload_extra_behavior** | `function() end` | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
 
@@ -47,7 +47,7 @@ Enable the commands you want to use the next way.
 ## Example of a real config
 
 ```lua
- -- distroupdate.nvim [distro update]
+  -- distroupdate.nvim [distro update]
   -- https://github.com/Zeioth/distroupdate.nvim
   {
     "Zeioth/distroupdate.nvim",
@@ -55,23 +55,13 @@ Enable the commands you want to use the next way.
     opts = {
       remote = "origin",
       channel = "stable",
-      release_tag = nil,
-      hot_reload_files = { "base.1-options", "base.4-mappings" }
-    },
-    config = function(opts)
-      require("distroupdate").setup(opts)
-
-      -- Enable hot reload (optional).
-      vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-        desc = ":NvimReload if the buffer is a file to be hot reloaded.",
-        callback = function()
-          vim.cmd "NvimReload"                                               -- Reload files in opts.hot_reload_files
-          vim.cmd ":silent! doautocmd ColorScheme"                           -- Also for heirline colorscheme
-          vim.cmd(":silent! colorscheme " .. base.default_colorscheme)       -- Also for nvim colorscheme
-        end,
-      })
-    end
-  },
+      hot_reload_files = { "base.1-options", "base.4-mappings" },
+      hot_reload_exta_behavior = function()
+        vim.cmd ":silent! doautocmd ColorScheme"                             -- Heirline colorscheme reload event
+        vim.cmd(":silent! colorscheme " .. base.default_colorscheme)         -- Nvm theme reload command
+      end
+    }
+  }
 ```
 
 ## Credits
@@ -81,5 +71,4 @@ Most of the code included in this plugin come from AstroNvim, modified for the f
 * placeholder
 
 ## Roadmap
-* TODO: Re-order config options alphabetically.
 * TODO: Test all functions again.
