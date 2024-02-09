@@ -3,6 +3,9 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 
 ![screenshot_2024-02-09_21-31-46_988972150](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/69bacfe7-ffb7-4f59-91f8-a41bbe2f7ed3)
 
+## Why
+So you can always have a fresh nvim config when you use Nvim in multiple machines. Just Run `:NvimConfigUpdate` and get the latest available version from your github repository.
+
 ## How to install
 On lazy
 
@@ -70,7 +73,3 @@ On lazy
 
 ## Credits
 Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support both projects if you enjoy this plugin.
-
-## FAQ
-* `Resume it` You run `:NvimConfigUpdate` and you get the latest available version from your github repository.
-* `Why?` In case you run Neovim in multiple machines, you will always have a fresh config in all of them.
