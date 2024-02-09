@@ -7,7 +7,17 @@ Enable the commands you want to use the next way.
 ```lua
   {
     "Zeioth/distroupgrade.nvim",
-    event = "VeryLazy",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    cmd = {
+      "NvimChangelog",
+      "NvimFreezePluginVersions",
+      "NvimReload",
+      "NvimRollbackCreate",
+      "NvimRollbackRestore",
+      "NvimUpdateConfig",
+      "NvimUpdatePlugins",
+      "NvimVersions"
+    },
     opts = {}
   },
 ```
