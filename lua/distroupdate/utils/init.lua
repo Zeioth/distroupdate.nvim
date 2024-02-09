@@ -34,6 +34,7 @@ function M.reload(quiet)
   )
   local success = true
   for _, module in ipairs(core_modules) do
+    module = M.filepath_to_module(module)
     local status_ok, fault = pcall(require, module)
     if not status_ok then
       vim.api.nvim_err_writeln("Failed to load " .. module .. "\n\n" .. fault)
@@ -100,6 +101,27 @@ function M.cmd(cmd, show_error)
     vim.api.nvim_err_writeln(("Error running command %s\nError message:\n%s"):format(table.concat(cmd, " "), result))
   end
   return success and result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "") or nil
+end
+
+--- Given a path, return its nvim module.
+---@param path string Path of a file inside your nvim config directory.
+---@return module string A string which is the module of the file path.
+---@example  filepath_to_module(/home/zeioth/.config/nvim/lua/base/1-options.lua)  -- returns "base.1-options"
+function M.filepath_to_module(path)
+    local filename = path:gsub("^.*[\\/]", "")  -- Remove leading directory path
+    filename = filename:gsub("%..+$", "")      -- Remove file extension
+    filename = filename:gsub("/", ".")         -- Replace '/' with '.'
+
+    -- Extract directory name when constructed using vim.fn.stdpath()
+    local directory = path:match(".*/") or ""
+    directory = directory:gsub("^.*[\\/]", "") -- Remove leading directory path
+
+    -- Check if directory is empty and try extracting it differently
+    if directory == "" then
+        directory = path:match("^.*/([^/]+)/.*$") or ""
+    end
+
+    return directory .. "." .. filename
 end
 
 ---Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
