@@ -10,16 +10,7 @@ Enable the commands you want to use the next way.
   {
     "Zeioth/distroupgrade.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    cmd = {
-      "NvimChangelog",
-      "NvimFreezePluginVersions",
-      "NvimReload",
-      "NvimRollbackCreate",
-      "NvimRollbackRestore",
-      "NvimUpdateConfig",
-      "NvimUpdatePlugins",
-      "NvimVersions"
-    },
+    event = "VeryLazy",
     opts = {}
   },
 ```
@@ -51,28 +42,35 @@ Enable the commands you want to use the next way.
 ## Example of a real config
 
 ```lua
-  -- distroupdate.nvim [distro update]
-  -- https://github.com/Zeioth/distroupdate.nvim
-  {
-    "Zeioth/distroupdate.nvim",
-    event = "VeryLazy",
-    opts = {
+-- distroupdate.nvim [distro update]
+-- https://github.com/Zeioth/distroupdate.nvim
+{
+  "Zeioth/distroupdate.nvim",
+  dependencies = { "nvim-lua/plenary.nvim" },
+  event = "VeryLazy",
+  opts = function()
+    local utils = require "base.utils"
+    local config_dir = utils.os_path(vim.fn.stdpath "config" .. "/lua/base/")
+    return {
       remote = "origin",
-      channel = "stable",
-      hot_reload_files = { "base.1-options", "base.4-mappings" },
-      hot_reload_exta_behavior = function()
-        vim.cmd ":silent! doautocmd ColorScheme"                             -- Heirline colorscheme reload event
-        vim.cmd(":silent! colorscheme " .. base.default_colorscheme)         -- Nvm theme reload command
+      channel = "stable",                                                  -- stable/nightly
+      release_tag = nil,                                                   -- in case you wanna freeze a distro version.
+      hot_reload_files = {
+        config_dir .. "1-options.lua",
+        config_dir .. "4-mappings.lua"
+      },
+      hot_reload_extra_behavior = function()
+        vim.cmd ":silent! doautocmd ColorScheme"                           -- heirline colorscheme reload event
+        vim.cmd(":silent! colorscheme " .. base.default_colorscheme)       -- nvim theme reload command
       end
     }
-  }
+  end
+},
 ```
 
 ## Credits
 Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support the projects if you enjoy this plugin.
 
 ## FAQ
-* placeholder
-
-## Roadmap
-* TODO: Test all functions again.
+* `Resume it` You run `:NvimConfigUpdate` and you get the latest available version from your github repository.
+* `Why?` In case you run Neovim in multiple machines, you will always have a fresh config in all of them.
