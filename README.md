@@ -75,5 +75,6 @@ On lazy
 Many of the GPL3 lua libraries this plugin use come from AstroNvim > NormalNvim. So please support both projects if you enjoy this plugin.
 
 ## FAQ
-**Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
-**Where do the updates come from?** From your own git repo. You are the only one in control.
+
+* **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
+* **Where do the updates come from?** From your own git repo. You are the only one in control.
