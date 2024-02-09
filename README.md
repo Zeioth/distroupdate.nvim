@@ -68,7 +68,7 @@ Enable the commands you want to use the next way.
 ```
 
 ## Credits
-Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support the projects if you enjoy this plugin.
+Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support both projects if you enjoy this plugin.
 
 ## FAQ
 * `Resume it` You run `:NvimConfigUpdate` and you get the latest available version from your github repository.
