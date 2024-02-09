@@ -72,4 +72,4 @@ On lazy
 ```
 
 ## Credits
-Most of the code included in this plugin come from AstroNvim, modified for the fork NormalNvim. So please support both projects if you enjoy this plugin.
+Many of the GPL3 lua libraries this plugin use come from AstroNvim. So please support both projects if you enjoy this plugin.
