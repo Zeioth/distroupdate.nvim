@@ -4,7 +4,7 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 ![screenshot_2024-02-09_21-31-46_988972150](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/69bacfe7-ffb7-4f59-91f8-a41bbe2f7ed3)
 
 ## How to install
-Enable the commands you want to use the next way.
+On lazy
 
 ```lua
   {
