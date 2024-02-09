@@ -7,7 +7,7 @@ local utils = require("distroupdate.utils")
 ---@param opts table A table with options to set.
 function M.set(opts)
   M.channel = opts.channel or "stable"
-  M.hot_reload_exta_behavior = opts.hot_reload_exta_behavior or function() end
+  M.hot_reload_extra_behavior = opts.hot_reload_exta_behavior or function() end
   M.hot_reload_files = opts.hot_reload_files or {}
   M.release_tag = opts.release_tag or nil
   M.remote = opts.remote or "origin"
