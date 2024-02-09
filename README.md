@@ -3,7 +3,7 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 
 ![screenshot_2024-02-09_21-31-46_988972150](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/69bacfe7-ffb7-4f59-91f8-a41bbe2f7ed3)
 
-## How to use
+## How to install
 Enable the commands you want to use the next way.
 
 ```lua
@@ -15,7 +15,7 @@ Enable the commands you want to use the next way.
   },
 ```
 
-## Options
+## Available options
 
 |  Name               | Default value |Description                             |
 |---------------------|---------------|----------------------------------------|
@@ -27,7 +27,7 @@ Enable the commands you want to use the next way.
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded, every time you write them. This way you can see the changes reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
 | **hot_reload_extra_behavior** | `function() end` | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
 
-## Commands
+## Available commands
 
 |  Command            | Description                             |
 |---------------------|-----------------------------------------|
