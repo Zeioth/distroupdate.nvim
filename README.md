@@ -49,8 +49,7 @@ Enable the commands you want to use the next way.
   dependencies = { "nvim-lua/plenary.nvim" },
   event = "VeryLazy",
   opts = function()
-    local utils = require "base.utils"
-    local config_dir = utils.os_path(vim.fn.stdpath "config" .. "/lua/base/")
+    local config_dir = vim.fn.stdpath "config" .. "/lua/base/"
     return {
       remote = "origin",
       channel = "stable",                                                  -- stable/nightly
