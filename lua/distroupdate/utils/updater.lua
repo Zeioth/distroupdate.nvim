@@ -169,8 +169,8 @@ end
 --- @param opts? table the settings to use for the update
 function M.update(opts)
   if not opts then opts = {
-    vim.g.distroupdate_config.remote,
-    vim.g.distroupdate_config.channel
+    remote = vim.g.distroupdate_config.remote,
+    channel = vim.g.distroupdate_config.channel
   } end
   opts = require("distroupdate.utils").extend_tbl(
     { remote = "origin", show_changelog = true, auto_quit = false },

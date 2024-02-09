@@ -52,7 +52,7 @@ function M.setup(opts)
 
   -- Autocmds
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    desc = ":NvimReload if any of the buffers in the option `hot_reload_files` are written.",
+    desc = ":NvimReload if a `hot_reload_files` buf is written.",
     callback = function()
       local bufPath = vim.fn.expand "%:p"
       for _, filePath in ipairs(opts.hot_reload_files) do
