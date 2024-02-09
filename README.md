@@ -20,8 +20,8 @@ Enable the commands you want to use the next way.
 |  Name               | Default value |Description                             |
 |---------------------|---------------|----------------------------------------|
 | **channel** | `nightly` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
-| **snapshot_file** | `<nvim_config>/lua/lazy_snapshot.lua` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
-| **snapshop_module** | `lazy_snapshop` | Name of the snapshot_file. TODO: We could programatically remove this option. |
+| **snapshot_file** | `<nvim_config_dir>/lua/lazy_snapshot.lua` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
+| **snapshop_module** | `lazy_snapshot` | Name of the snapshot_file. TODO: We could programatically remove this option. |
 | **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
 | **release_tag** | `nil` | (optional) If this option is used, the option `channel` will be ignored, and the updater will use release you specify. The format must be semantic versioning, like: `v1.0`. |
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded, every time you write them. This way you can see the changes reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
