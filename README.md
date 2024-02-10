@@ -55,15 +55,15 @@ On lazy
     local config_dir = vim.fn.stdpath "config" .. "/lua/base/"
     return {
       remote = "origin",
-      channel = "stable",                                                  -- stable/nightly
+      channel = "stable",                                                  -- stable/nightly.
       release_tag = nil,                                                   -- in case you wanna freeze a distro version.
       hot_reload_files = {
         config_dir .. "1-options.lua",
         config_dir .. "4-mappings.lua"
       },
       hot_reload_extra_behavior = function()
-        vim.cmd ":silent! doautocmd ColorScheme"                           -- heirline colorscheme reload event
-        vim.cmd(":silent! colorscheme " .. base.default_colorscheme)       -- nvim     colorscheme reload command
+        vim.cmd ":silent! doautocmd ColorScheme"                           -- heirline colorscheme reload event.
+        vim.cmd(":silent! colorscheme " .. base.default_colorscheme)       -- nvim     colorscheme reload command.
       end
     }
   end
