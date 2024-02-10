@@ -72,7 +72,7 @@ On lazy
 ```
 
 ## Credits
-Many of the GPL3 lua libraries this plugin use come from AstroNvim > NormalNvim. So please support both projects if you enjoy this plugin.
+Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvim. So please support both projects if you enjoy this plugin.
 
 ## FAQ
 
