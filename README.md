@@ -22,7 +22,7 @@ On lazy
 
 |  Name               | Default value |Description                             |
 |---------------------|---------------|----------------------------------------|
-| **channel** | `nightly` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
+| **channel** | `stable` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
 | **hot_reload_extra_behavior** | `function() end` | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded, every time you write them. This way you can see the changes reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
 | **release_tag** | `nil` | (optional) If this option is used, the option `channel` will be ignored, and the updater will download the release you specify. The format must be semantic versioning, like: `v1.0`. |
