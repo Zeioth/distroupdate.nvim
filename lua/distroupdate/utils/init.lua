@@ -8,7 +8,8 @@
 --      -> extend_tbl            → Add the content of a table to another table.
 --      -> notify                → Send a notification asynchronously.
 --      -> event                 → Manually emit a system event.
---      -> cmd                   → Run a shell command and return true/false
+--      -> cmd                   → Run a shell command and return true/false.
+--      -> os_path               → Convert a path to / (UNIX) or \ (Windows).
 
 local M = {}
 
