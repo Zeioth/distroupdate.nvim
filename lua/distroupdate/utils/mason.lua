@@ -8,7 +8,6 @@
 --      -> updateall   → update all mason packages.
 
 local M = {}
-
 local utils = require "distroupdate.utils"
 
 --- Update specified mason packages, or just update the registries
