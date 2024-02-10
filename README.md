@@ -27,7 +27,6 @@ On lazy
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded, every time you write them. This way you can see the changes reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
 | **release_tag** | `nil` | (optional) If this option is used, the option `channel` will be ignored, and the updater will download the release you specify. The format must be semantic versioning, like: `v1.0`. |
 | **remote** | `origin` | Github remote of your distro repository. |
-
 | **snapshot_file** | `<nvim_config_dir>/lua/lazy_snapshot.lua` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
 | **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
 
