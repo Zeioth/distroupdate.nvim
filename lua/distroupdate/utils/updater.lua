@@ -1,14 +1,8 @@
---- ### Nvim Updater functions
+--- ## Updater functions
 --
 --  DESCRIPTION:
---  Functions for the nvim updater commands in ../3-autocmds.lua
---
---  While you could technically delete this file, and the update commands
---  in the autocmds file, we encourage you to keep it, as it is a great way to:
---  * Freeze your plugins versions.
---  * Download the latest version of your config, assuming you use nvim in more
---    than one device.
---
+--  Functions used by the commands of distroupdate.nvim
+
 --    Functions:
 --      -> generate_snapshot   → used by :NvimFreezePluginVersions.
 --      -> version             → used by :NvimVersion.
