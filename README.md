@@ -3,6 +3,12 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 
 ![screenshot_2024-02-09_21-31-46_988972150](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/69bacfe7-ffb7-4f59-91f8-a41bbe2f7ed3)
 
+<div align="center">
+  <a href="https://discord.gg/ymcMaSnq7d" rel="nofollow">
+      <img src="https://img.shields.io/discord/1121138836525813760?color=azure&labelColor=6DC2A4&logo=discord&logoColor=black&label=Join the discord server&style=for-the-badge" data-canonical-src="https://img.shields.io/discord/1121138836525813760">
+    </a>
+</div>
+
 ## Why
 So you can always have a fresh nvim config when you use Nvim in multiple machines. Just run `:NvimConfigUpdate` and get the latest available version from your github repository.
 
