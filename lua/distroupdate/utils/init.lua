@@ -1,7 +1,7 @@
---- ### Nvim general utils
+--- ### General utils
 --
 --  DESCRIPTION:
---  General utility functions to use within Nvim.
+--  General utility functions.
 
 --    Helpers:
 --      -> reload                → Reload nvim settings.
