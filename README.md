@@ -66,7 +66,7 @@ All options described here are 100% optional and you don't need to defined them 
     return {
       remote = "origin",
       channel = "stable",                                             -- stable/nightly.
-      release_tag = nil,                                              -- in case you wanna freeze a distro version.
+      release_tag = nil,                                              -- in case you wanna freeze a specific distro version.
       hot_reload_files = {
         config_dir .. "1-options.lua",
         config_dir .. "4-mappings.lua"
