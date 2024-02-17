@@ -35,7 +35,7 @@ All options described here are 100% optional and you don't need to defined them 
 | **channel** | `stable` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded every time you write them. This way you can see the changes in your config reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
 | **hot_reload_extra_behavior** | `function() end` | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
-| **release_tag** | `nil` |  If this option is specified, the option `channel` will be ignored, and the updater will download the release you specify. The format must be semantic versioning, like: `v1.0`. |
+| **release_tag** | `nil` |  If this option is specified, the option `channel` will be ignored, and the updater will download the release you specify. The format must be semantic versioning, like: `"v1.0"`. |
 | **remote** | `origin` | Github remote of your distro repository. |
 | **snapshot_file** | `<nvim_config_dir>/lua/lazy_snapshot.lua` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
 | **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
