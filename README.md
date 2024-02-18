@@ -19,12 +19,12 @@ Running `:NvimConfigUpdate` will ovewrite any uncommited change in your local nv
 On lazy
 
 ```lua
-  {
-    "Zeioth/distroupgrade.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    event = "VeryLazy",
-    opts = {}
-  },
+{
+  "Zeioth/distroupgrade.nvim",
+  dependencies = { "nvim-lua/plenary.nvim" },
+  event = "VeryLazy",
+  opts = {}
+}
 ```
 
 ## Available options
