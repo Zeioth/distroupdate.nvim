@@ -95,6 +95,3 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
-
-## Roadmap
-* Before releasing `v1.0.0` consider changing the command events to `DistroUpdate<name>` or `DU<name>`
