@@ -72,19 +72,23 @@ function M.notify(msg, type, opts)
     msg, type, M.extend_tbl({ title = "Neovim" }, opts)) end)
 end
 
---- Trigger an internal NormalNvim event.
----@param event string The event name to be appended to Base.
--- @usage If you pass the event 'Foo' to this method, it will trigger.
---        the autocmds including the pattern 'BaseFoo'.
-function M.event(event)
-  vim.schedule(
-    function()
-      vim.api.nvim_exec_autocmds(
-        "User",
-        { pattern = "Base" .. event, modeline = false }
-      )
+--- Convenient wapper to save code when we Trigger events.
+---@param event string Name of the event.
+-- @usage To run a User event:   `trigger_event("User MyUserEvent")`
+-- @usage To run a Neovim event: `trigger_event("BufEnter")`
+function M.trigger_event(event)
+  -- detect if event start with the substring "User "
+  local is_user_event = string.match(event, "^User ") ~= nil
+
+  vim.schedule(function()
+    if is_user_event then
+      -- Substract the substring "User " from the beginning of the event.
+      event = event:gsub("^User ", "")
+      vim.api.nvim_exec_autocmds("User", { pattern = event, modeline = false })
+    else
+      vim.api.nvim_exec_autocmds(event, { modeline = false })
     end
-  )
+  end)
 end
 
 --- Run a shell command and capture the output and if the command

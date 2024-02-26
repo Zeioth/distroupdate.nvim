@@ -321,14 +321,14 @@ function M.update(opts)
     if opts.auto_quit then
       vim.api.nvim_create_autocmd("User", {
         desc = "Auto quit Nvim after update completes",
-        pattern = "NVimUpdateComplete",
-        command = "quitall",
+        pattern = "ConfigUpdateCompleted",
+        command = "quitall",  -- Auto close nvim after a update
       })
     end
 
     require("lazy.core.plugin").load()   -- force immediate reload of lazy
     require("lazy").sync { wait = true } -- sync new plugin spec changes
-    utils.event "UpdateComplete"
+    utils.trigger_event("User ConfigUpdateCompleted")
   end
 end
 

@@ -99,7 +99,7 @@ function M.update_all()
     return
   end
 
-  utils.notify "Mason: Checking for package updates..."
+  utils.notify("Mason: Checking for package updates...")
   registry.update(vim.schedule_wrap(function(success, updated_registries)
     if success then
       local installed_pkgs = registry.get_installed_packages()
@@ -108,7 +108,7 @@ function M.update_all()
 
       if no_pkgs then
         utils.notify("Mason: No updates available")
-        utils.event("MasonUpdateCompleted")
+        utils.trigger_event("User MasonUpdateCompleted")
       else
         local updated = false
         for _, pkg in ipairs(installed_pkgs) do
@@ -125,18 +125,18 @@ function M.update_all()
                 running = running - 1
                 if running == 0 then
                   utils.notify "Mason: Update Complete"
-                  utils.event("MasonUpdateCompleted")
+                  utils.trigger_event("User MasonUpdateCompleted")
                 end
               end)
             else
               running = running - 1
               if running == 0 then
                 if updated then
-                  utils.notify "Mason: Update Complete"
+                  utils.notify("Mason: Update Complete")
                 else
-                  utils.notify "Mason: No updates available"
+                  utils.notify("Mason: No updates available")
                 end
-                utils.event("MasonUpdateCompleted")
+                utils.trigger_event("User MasonUpdateCompleted")
               end
             end
           end)
