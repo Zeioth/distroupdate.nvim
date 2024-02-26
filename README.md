@@ -87,7 +87,7 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
-* **Do this plugin send events?** The commands `:NvimUpdatePlugins` and `:NvimUpdateConfig` trigger the events `User MasonUpdateCompleted` and `User ConfigUpdateCompleted`. Knowing this you can create a autocmd to listen these events in case you want something to happen after the commands finnish.
+* **Do this plugin send events?** The commands `:NvimUpdatePlugins` and `:NvimUpdateConfig` trigger the events `User MasonUpdateCompleted` and `User ConfigUpdateCompleted`. Knowing this you can create a autocmd to listen these events in case you want something to happen after the commands end executing.
 
 ## Roadmap
 * Document the events 
