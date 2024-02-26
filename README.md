@@ -87,9 +87,7 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
-* **Why do this plugin has plenary as dependency?** This is necessary for `hot_reload_files` and `hot_reload_extra_behavior`. If you don't use hot reload, you can remove the dependency if you want.
 * **Do this plugin send events?** The commands `:NvimUpdatePlugins` and `:NvimUpdateConfig` trigger the events `User MasonUpdateCompleted` and `User ConfigUpdateCompleted`. Knowing this you can create a autocmd to listen these events in case you want something to happen after the commands finnish.
-
 
 ## Roadmap
 * Document the events 
