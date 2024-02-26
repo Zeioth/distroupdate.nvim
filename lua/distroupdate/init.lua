@@ -57,8 +57,8 @@ function M.setup(opts)
       local bufPath = vim.fn.expand "%:p"
       for _, filePath in ipairs(opts.hot_reload_files) do
         if filePath == bufPath then
-          vim.cmd "NvimReload"
-          opts.hot_reload_extra_behavior()
+          vim.cmd("NvimReload")
+          opts.hot_reload_callback()
         end
       end
     end
