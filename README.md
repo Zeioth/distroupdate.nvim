@@ -34,7 +34,7 @@ All options described here are 100% optional and you don't need to defined them 
 |---------------------|---------------|----------------------------------------|
 | **channel** | `stable` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded every time you write them. This way you can see the changes in your config reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
-| **hot_reload_extra_behavior** | `function() end` | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
+| **hot_reload_callback** | `function() end` | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
 | **release_tag** | `nil` |  If this option is specified, the option `channel` will be ignored, and the updater will download the release you specify. The format must be semantic versioning, like: `"v1.0"`. |
 | **remote** | `origin` | Github remote of your distro repository. |
 | **snapshot_file** | `<nvim_config_dir>/lua/lazy_snapshot.lua` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
@@ -51,6 +51,14 @@ All options described here are 100% optional and you don't need to defined them 
 | **:NvimUpdatePlugins** | Uses lazy to update the plugins, and Mason to update all your lsp servers, linters, DAP adapters, and formatters. |
 | **:NvimFreezePluginVersions** | Saves your current plugin versions into `lazy_versions.lua` in your config directory. You can import this file and pass it to your lazy config, so it respect your locked versions. [Check the option `spec` in lazy](https://github.com/folke/lazy.nvim). |
 | **:NvimVersion** | Prints the commit number of the current NormalNvim version. |
+
+## Events (Optional)
+Distroupdate.nvim trigger two different events:
+
+| Event | Description |
+|--------|------------|
+| `User MasonUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after Mason end installing packages during `:NvimUpdateConfig` or `:NvimUpdatePlugins`. |
+| `User ConfigUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after `:NvimUpdateConfig` ends. |
 
 ## Example of a real config
 
@@ -87,7 +95,6 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
-* **Do this plugin send events?** The commands `:NvimUpdatePlugins` and `:NvimUpdateConfig` trigger the events `User MasonUpdateCompleted` and `User ConfigUpdateCompleted`. Knowing this you can create a autocmd to listen these events in case you want something to happen after the commands finnish.
 
 ## Roadmap
-* Document the events 
+* Before releasing `v1.0.0` consider changing the command events to `DistroUpdate<name>` or `DU<name>`
