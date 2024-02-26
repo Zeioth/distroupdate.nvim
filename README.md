@@ -52,6 +52,14 @@ All options described here are 100% optional and you don't need to defined them 
 | **:NvimFreezePluginVersions** | Saves your current plugin versions into `lazy_versions.lua` in your config directory. You can import this file and pass it to your lazy config, so it respect your locked versions. [Check the option `spec` in lazy](https://github.com/folke/lazy.nvim). |
 | **:NvimVersion** | Prints the commit number of the current NormalNvim version. |
 
+## Events (Optional)
+Distroupdate.nvim trigger two different events:
+
+| Event | Description |
+|--------|------------|
+| `User MasonUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after Mason end installing packages during `:NvimUpdateConfig` or `:NvimUpdatePlugins`. |
+| `User ConfigUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after `:NvimUpdateConfig` ends. |
+
 ## Example of a real config
 
 ```lua
@@ -87,7 +95,6 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
-* **Do this plugin send events?** The commands `:NvimUpdatePlugins` and `:NvimUpdateConfig` trigger the events `User MasonUpdateCompleted` and `User ConfigUpdateCompleted`. Knowing this you can create a autocmd to listen these events in case you want something to happen after the commands end executing.
 
 ## Roadmap
 * Before releasing `v1.0.0` consider changing the command events to `DistroUpdate<name>` or `DU<name>`
