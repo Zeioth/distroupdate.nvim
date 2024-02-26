@@ -90,4 +90,4 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 * **Do this plugin send events?** The commands `:NvimUpdatePlugins` and `:NvimUpdateConfig` trigger the events `User MasonUpdateCompleted` and `User ConfigUpdateCompleted`. Knowing this you can create a autocmd to listen these events in case you want something to happen after the commands end executing.
 
 ## Roadmap
-* Document the events 
+* Before v1.0 consider changing the command events to `DistroUpdate<name>` or `DU<name>`
