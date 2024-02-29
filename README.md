@@ -28,7 +28,7 @@ On lazy
 ```
 
 ## Available options
-All options described here are 100% optional and you don't need to defined them to use this plugin.
+All options described here are 100% optional and you don't need to define them to use this plugin.
 
 |  Name               | Default value |Description                             |
 |---------------------|---------------|----------------------------------------|
