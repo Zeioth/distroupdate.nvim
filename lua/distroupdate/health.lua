@@ -1,6 +1,6 @@
 -- On neovim you can run
 -- :checkhealth distroupdate
--- To know possible causes in case distroupdate.nvim is nor working correctly.
+-- To know possible causes in case distroupdate.nvim is not working correctly.
 
 local M = {}
 

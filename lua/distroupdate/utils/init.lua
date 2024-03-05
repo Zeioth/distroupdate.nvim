@@ -6,8 +6,8 @@
 --    Helpers:
 --      -> reload                → Reload nvim settings.
 --      -> extend_tbl            → Add the content of a table to another table.
---      -> notify                → Send a notification asynchronously.
---      -> event                 → Manually emit a system event.
+--      -> notify                → Send a notification with the plugin title.
+--      -> trigger_event         → Manually trigger a event.
 --      -> cmd                   → Run a shell command and return true/false.
 --      -> os_path               → Convert a path to / (UNIX) or \ (Windows).
 
@@ -63,13 +63,13 @@ function M.extend_tbl(default, opts)
   return default and vim.tbl_deep_extend("force", default, opts) or opts
 end
 
---- Serve a notification with a title of Neovim.
+--- Serve a notification with a default title.
 ---@param msg string The notification body.
 ---@param type number|nil The type of the notification (:help vim.log.levels).
 ---@param opts? table The nvim-notify options to use (:help notify-options).
 function M.notify(msg, type, opts)
   vim.schedule(function() vim.notify(
-    msg, type, M.extend_tbl({ title = "Neovim" }, opts)) end)
+    msg, type, M.extend_tbl({ title = "Distroupdate.nvim" }, opts)) end)
 end
 
 --- Convenient wapper to save code when we Trigger events.
@@ -111,11 +111,11 @@ end
 --- Given a path, return its nvim module.
 ---@param path string Path of a file inside your nvim config directory.
 ---@return module string A string which is the module of the file path.
----@example  filepath_to_module(/home/zeioth/.config/nvim/lua/base/1-options.lua)  -- returns "base.1-options"
+---@example  filepath_to_module(/home/user/.config/nvim/lua/base/1-options.lua)  -- returns "base.1-options"
 function M.filepath_to_module(path)
     local filename = path:gsub("^.*[\\/]", "")  -- Remove leading directory path
-    filename = filename:gsub("%..+$", "")      -- Remove file extension
-    filename = filename:gsub("/", ".")         -- Replace '/' with '.'
+    filename = filename:gsub("%..+$", "")       -- Remove file extension
+    filename = filename:gsub("/", ".")          -- Replace '/' with '.'
 
     -- Extract directory name when constructed using vim.fn.stdpath()
     local directory = path:match(".*/") or ""
