@@ -15,7 +15,7 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 - [How to install](#how-to-install)
 - [Available commands](#available-commands)
 - [Available options](#available-options)
-- [Events (optional)](#events-optional)
+- [Events (Optional)](#events-optional)
 - [Example of a real config](#example-of-a-real-config)
 - [FAQ](#faq)
 
