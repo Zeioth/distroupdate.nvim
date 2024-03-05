@@ -9,10 +9,20 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
     </a>
 </div>
 
+## Table of contents
+
+- [Why](#why)
+- [How to install](#how-to-install)
+- [Available commands](#available-commands)
+- [Available options](#available-options)
+- [Events](#events-optional)
+- [Example of a real config](#example-of-a-real-config)
+- [FAQ](#faq)
+
 ## Why
 So you can always have a fresh nvim config when you use Nvim in multiple machines. Just run `:NvimConfigUpdate` and get the latest available version from your github repository.
 
-## Warning
+### Warning
 Running `:NvimConfigUpdate` will ovewrite any uncommited change in your local nvim config, so make sure you push your local changes before running it.
 
 ## How to install
@@ -27,6 +37,18 @@ On lazy
 }
 ```
 
+## Available commands
+
+|  Command            | Description                             |
+|---------------------|-----------------------------------------|
+| **:NvimUpdateConfig** | If the value of the option `channel` is `stable`, it will update from the latest available released version of the `remote` of the git repository of your nvim config. If the value of `channel` is `nightly`, it will update from the latest changes in the branch `nightly` of the git repository of you nvim config.|
+| **:NvimRollbackCreate** | Creates a recovery point. It is triggered automatically when running `:NvimUpdateConfig`. |
+| **:NvimRollbackRestore** | Uses git to bring your config to the state it had when `:NvimRollbackCreate` was called. |
+| **:NvimReload** | Hot reloads the files specified in the optin `hot_reload_files` without need to restart nvim. |
+| **:NvimUpdatePlugins** | Uses lazy to update the plugins, and Mason to update all your lsp servers, linters, DAP adapters, and formatters. |
+| **:NvimFreezePluginVersions** | Saves your current plugin versions into `lazy_versions.lua` in your config directory. You can import this file and pass it to your lazy config, so it respect your locked versions. [Check the option `spec` in lazy](https://github.com/folke/lazy.nvim). |
+| **:NvimVersion** | Prints the commit number of the current NormalNvim version. |
+
 ## Available options
 All options described here are 100% optional and you don't need to define them to use this plugin.
 
@@ -39,18 +61,6 @@ All options described here are 100% optional and you don't need to define them t
 | **remote** | `origin` | Github remote of your distro repository. |
 | **snapshot_file** | `<nvim_config_dir>/lua/lazy_snapshot.lua` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
 | **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
-
-## Available commands
-
-|  Command            | Description                             |
-|---------------------|-----------------------------------------|
-| **:NvimUpdateConfig** | If the value of the option `channel` is `stable`, it will update from the latest available released version of the `remote` of the git repository of your nvim config. If the value of `channel` is `nightly`, it will update from the latest changes in the branch `nightly` of the git repository of you nvim config.|
-| **:NvimRollbackCreate** | Creates a recovery point. It is triggered automatically when running `:NvimUpdateConfig`. |
-| **:NvimRollbackRestore** | Uses git to bring your config to the state it had when `:NvimRollbackCreate` was called. |
-| **:NvimReload** | Hot reloads the files specified in the optin `hot_reload_files` without need to restart nvim. |
-| **:NvimUpdatePlugins** | Uses lazy to update the plugins, and Mason to update all your lsp servers, linters, DAP adapters, and formatters. |
-| **:NvimFreezePluginVersions** | Saves your current plugin versions into `lazy_versions.lua` in your config directory. You can import this file and pass it to your lazy config, so it respect your locked versions. [Check the option `spec` in lazy](https://github.com/folke/lazy.nvim). |
-| **:NvimVersion** | Prints the commit number of the current NormalNvim version. |
 
 ## Events (Optional)
 Distroupdate.nvim trigger two different events:
