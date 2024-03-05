@@ -20,7 +20,9 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 - [FAQ](#faq)
 
 ## Why
-So you can always have a fresh nvim config when you use Nvim in multiple machines. Just run `:NvimConfigUpdate` and get the latest available version from your github repository.
+If you use Neovim in multiple machines, you can run `:NvimConfigUpdate` to get the latest changes of your config from your GitHub repository from any device.
+
+If you are developing a Neovim distro, you can ship this plugin, and users will get updates from your distro GitHub repository when they run `:NvimConfigUpdate`.
 
 ### Warning
 Running `:NvimConfigUpdate` will overwrite any uncommited change in your local nvim config, so make sure you push your local changes before running it.
@@ -105,3 +107,7 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
+
+## Roadmap
+
+* We should provide a option to use a service different than GitHub.
