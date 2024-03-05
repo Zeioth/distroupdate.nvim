@@ -1,7 +1,7 @@
 # distroupdate.nvim
 Distro agnostic Neovim plugin to upgrade your current distro from its github remote.
 
-![screenshot_2024-02-09_21-31-46_988972150](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/69bacfe7-ffb7-4f59-91f8-a41bbe2f7ed3)
+![screenshot_2024-03-05_16-49-28_169486211](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/4c7dc080-1fae-4fcd-9440-f10113e2a9a5)
 
 <div align="center">
   <a href="https://discord.gg/ymcMaSnq7d" rel="nofollow">
