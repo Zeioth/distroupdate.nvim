@@ -23,7 +23,7 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 So you can always have a fresh nvim config when you use Nvim in multiple machines. Just run `:NvimConfigUpdate` and get the latest available version from your github repository.
 
 ### Warning
-Running `:NvimConfigUpdate` will ovewrite any uncommited change in your local nvim config, so make sure you push your local changes before running it.
+Running `:NvimConfigUpdate` will overwrite any uncommited change in your local nvim config, so make sure you push your local changes before running it.
 
 ## How to install
 On lazy
