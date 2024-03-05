@@ -25,7 +25,7 @@ If you use Neovim in multiple machines, you can use the command `:NvimConfigUpda
 If you are developing a Neovim distro, you can ship this plugin, and users will get updates from your distro GitHub repository when they run `:NvimConfigUpdate`.
 
 ### Warning
-Running `:NvimConfigUpdate` will overwrite any uncommited change in your local nvim config, so make sure you push your local changes before running it.
+Currently, running `:NvimConfigUpdate` will overwrite any uncommited change in your local nvim config.
 
 ## How to install
 On lazy
