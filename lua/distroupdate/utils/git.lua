@@ -29,7 +29,7 @@
 --      -> git.is_breaking
 --      -> git.breaking_changes
 
-local git = { url = "https://github.com/" }
+local git = {}
 
 local function trim_or_nil(str)
   return type(str) == "string" and vim.trim(str) or nil
