@@ -13,7 +13,11 @@ function M.setup(opts)
   cmd(
     "NvimChangelog",
     function() updater.changelog() end,
-    { desc = "Check Nvim Changelog" }
+    { desc = "Check Nvim Changelog." }
+  )
+  cmd(
+    "NvimDistroUpdate", function() updater.update() end,
+    { desc = "Update your config dir from its git repo." }
   )
   cmd(
     "NvimUpdatePlugins",
@@ -36,19 +40,15 @@ function M.setup(opts)
     { desc = "Lock package versions (only lazy, not mason)." }
   )
   cmd(
-    "NvimUpdateConfig", function() updater.update() end,
-    { desc = "Update Nvim distro" }
-  )
-  cmd(
     "NvimVersion",
     function() updater.version() end,
     { desc = "Check Nvim distro Version" }
   )
-  cmd(
-    "NvimReload",
-    function() require("distroupdate.utils").reload() end,
-    { desc = "Reload Nvim without closing it (Experimental)" }
-  )
+  -- cmd( ← There is no real reason for us to expose this.
+  --   "NvimHotReload",
+  --   function() require("distroupdate.utils").reload() end,
+  --   { desc = "Reload Nvim without closing it (Experimental)" }
+  -- )
 
   -- Autocmds
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
