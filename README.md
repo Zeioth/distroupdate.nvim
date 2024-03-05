@@ -43,7 +43,7 @@ On lazy
 
 |  Command            | Description                             |
 |---------------------|-----------------------------------------|
-| **:NvimUpdateConfig** | If the value of the option `channel` is `stable`, it will update from the latest available released version of the `remote` of the git repository of your nvim config. If the value of `channel` is `nightly`, it will update from the latest changes in the branch `nightly` of the git repository of you nvim config.|
+| **:NvimDistroUpdate** | If the value of the option `channel` is `stable`, it will update from the latest available released version of the `remote` of the git repository of your nvim config. If the value of `channel` is `nightly`, it will update from the latest changes in the branch `nightly` of the git repository of you nvim config.|
 | **:NvimRollbackCreate** | Creates a recovery point. It is triggered automatically when running `:NvimUpdateConfig`. |
 | **:NvimRollbackRestore** | Uses git to bring your config to the state it had when `:NvimRollbackCreate` was called. |
 | **:NvimReload** | Hot reloads the files specified in the optin `hot_reload_files` without need to restart nvim. |
