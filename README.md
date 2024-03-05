@@ -20,7 +20,7 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 - [FAQ](#faq)
 
 ## Why
-If you use Neovim in multiple machines, you can run `:NvimConfigUpdate` to get the latest changes of your config from your GitHub repository from any device.
+If you use Neovim in multiple machines, you can use the command `:NvimConfigUpdate` to get the latest changes of your config from your GitHub repository from any device.
 
 If you are developing a Neovim distro, you can ship this plugin, and users will get updates from your distro GitHub repository when they run `:NvimConfigUpdate`.
 
