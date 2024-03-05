@@ -20,12 +20,12 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 - [FAQ](#faq)
 
 ## Why
-If you use Neovim in multiple machines, you can use the command `:NvimConfigUpdate` to get the latest changes of your config from your GitHub repository from any device.
+If you use Neovim in multiple machines, you can use the command `:NvimDistroUpdate` to get the latest changes of your config from your GitHub repository from any device.
 
-If you are developing a Neovim distro, you can ship this plugin, and users will get updates from your distro GitHub repository when they run `:NvimConfigUpdate`.
+If you are developing a Neovim distro, you can ship this plugin, and users will get updates from your distro GitHub repository when they run `:NvimDistroUpdate`.
 
 ### Warning
-Currently, running `:NvimConfigUpdate` will overwrite any uncommited change in your local nvim config.
+Currently, running `:NvimDistroUpdate` will overwrite any uncommited change in your local nvim config.
 
 ## How to install
 On lazy
@@ -70,7 +70,7 @@ Distroupdate.nvim trigger two different events:
 | Event | Description |
 |--------|------------|
 | `User MasonUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after Mason end installing packages during `:NvimDistroUpdate` or `:NvimUpdatePlugins`. |
-| `User ConfigUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after `:NvimDistroUpdate` ends. |
+| `User DistroUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after `:NvimDistroUpdate` ends. |
 
 ## Example of a real config
 
