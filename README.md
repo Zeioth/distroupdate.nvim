@@ -44,7 +44,7 @@ On lazy
 |  Command            | Description                             |
 |---------------------|-----------------------------------------|
 | **:NvimDistroUpdate** | If the value of the option `channel` is `stable`, it will update from the latest available released version of the `remote` of the git repository of your nvim config. If the value of `channel` is `nightly`, it will update from the latest changes in the branch `nightly` of the git repository of you nvim config.|
-| **:NvimRollbackCreate** | Creates a recovery point. It is triggered automatically when running `:NvimUpdateConfig`. |
+| **:NvimRollbackCreate** | Creates a recovery point. It is triggered automatically when running `:NvimDistroUpdate`. |
 | **:NvimRollbackRestore** | Uses git to bring your config to the state it had when `:NvimRollbackCreate` was called. |
 | **:NvimReload** | Hot reloads the files specified in the optin `hot_reload_files` without need to restart nvim. |
 | **:NvimUpdatePlugins** | Uses lazy to update the plugins, and Mason to update all your lsp servers, linters, DAP adapters, and formatters. |
@@ -56,21 +56,21 @@ All options described here are 100% optional and you don't need to define them t
 
 |  Name               | Default value |Description                             |
 |---------------------|---------------|----------------------------------------|
-| **channel** | `stable` | Channel used by the command `:NvimUpdateConfig`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
+| **channel** | `stable` | Channel used by the command `:NvimDistroUpdate`. `stable` will update the distro from the latest available released version of your github repository. `nightly` will update the distro from the main branch of your github repository.
 | **hot_reload_files** | `{}` | The files included, will be hot reloaded every time you write them. This way you can see the changes in your config reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
 | **hot_reload_callback** | `function() end` | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
 | **release_tag** | `nil` |  If this option is specified, the option `channel` will be ignored, and the updater will download the release you specify. The format must be semantic versioning, like: `"v1.0"`. |
 | **remote** | `origin` | Github remote of your distro repository. |
 | **snapshot_file** | `<nvim_config_dir>/lua/lazy_snapshot.lua` | File used by the command `:NvimFreezePluginVersions` to write the plugins. 
-| **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimUpdateConfig`. |
+| **rollback_file** | `<nvim_cache_dir>/rollback.lua` | File created by the command `:NvimRollbackCreate`, which is autocamically trigerred by `:NvimDistroUpdate`. |
 
 ## Events (Optional)
 Distroupdate.nvim trigger two different events:
 
 | Event | Description |
 |--------|------------|
-| `User MasonUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after Mason end installing packages during `:NvimUpdateConfig` or `:NvimUpdatePlugins`. |
-| `User ConfigUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after `:NvimUpdateConfig` ends. |
+| `User MasonUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after Mason end installing packages during `:NvimDistroUpdate` or `:NvimUpdatePlugins`. |
+| `User ConfigUpdateCompleted` | You can listen to this event on an autocmd if you want something to happen after `:NvimDistroUpdate` ends. |
 
 ## Example of a real config
 
