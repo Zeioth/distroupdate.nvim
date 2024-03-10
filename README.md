@@ -1,7 +1,7 @@
 # distroupdate.nvim
 Distro agnostic Neovim plugin to upgrade your current distro from its github remote.
 
-![screenshot_2024-03-10_23-18-28_168259547](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/dea0df80-e267-4c1a-b83e-231013f91183)
+![screenshot_2024-03-10_23-20-38_444541684](https://github.com/Zeioth/distroupdate.nvim/assets/3357792/c86e1978-9095-4c50-9365-e130ff69a7d2)
 
 <div align="center">
   <a href="https://discord.gg/ymcMaSnq7d" rel="nofollow">
@@ -15,7 +15,6 @@ Distro agnostic Neovim plugin to upgrade your current distro from its github rem
 - [How to install](#how-to-install)
 - [Available commands](#available-commands)
 - [Available options](#available-options)
-- [Events (Optional)](#events-optional)
 - [Example of a real config](#example-of-a-real-config)
 - [FAQ](#faq)
 
@@ -33,10 +32,7 @@ This plugin requires you to use lazy package manager
 ```lua
 {
   "Zeioth/distroupgrade.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "Zeioth/mason-extra-cmds"
-  },
+  dependencies = "nvim-lua/plenary.nvim",
   event = "VeryLazy",
   opts = {}
 }
