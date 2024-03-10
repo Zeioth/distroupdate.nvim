@@ -109,7 +109,6 @@ function M.update_packages()
   require("lazy").sync { wait = true }  -- lazy install clean and update.
   vim.cmd("silent! MasonUpdateAll")     -- mason update all.
   vim.cmd("silent! TSUpdate all")       -- Treesitter update all.
-
 end
 
 --- Create a table of options for the currently installed Nvim version
