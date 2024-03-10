@@ -11,33 +11,28 @@ function M.setup(opts)
 
   -- Create commands so the user can use the plugin.
   cmd(
-    "NvimChangelog",
+    "DistroFreezePluginVersions",
+    function() updater.generate_snapshot(true) end,
+    { desc = "Lock package versions (lazy)." }
+  )
+  cmd(
+    "DistroReadChangelog",
     function() updater.changelog() end,
     { desc = "Check Nvim Changelog." }
   )
   cmd(
-    "NvimDistroUpdate", function() updater.update() end,
+    "DistroReadVersion",
+    function() updater.version() end,
+    { desc = "Check distro git Version." }
+  )
+  cmd(
+    "DistroUpdate", function() updater.update() end,
     { desc = "Update your config dir from its git repo." }
   )
   cmd(
-    "NvimRollbackCreate",
-    function() updater.create_rollback(true) end,
-    { desc = "Create a rollback of '~/.config/nvim'." }
-  )
-  cmd(
-    "NvimRollbackRestore",
+    "DistroUpdateRevert",
     function() updater.rollback() end,
-    { desc = "Restores '~/.config/nvim' to the last rollbacked state." }
-  )
-  cmd(
-    "NvimFreezePluginVersions",
-    function() updater.generate_snapshot(true) end,
-    { desc = "Lock package versions (only lazy, not mason)." }
-  )
-  cmd(
-    "NvimVersion",
-    function() updater.version() end,
-    { desc = "Check Nvim distro Version" }
+    { desc = "Restores '~/.config/nvim' to the version it had before running :DistroUpdate." }
   )
 
   -- Autocmds
