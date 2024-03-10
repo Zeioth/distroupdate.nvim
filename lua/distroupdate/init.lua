@@ -20,11 +20,6 @@ function M.setup(opts)
     { desc = "Update your config dir from its git repo." }
   )
   cmd(
-    "NvimUpdatePlugins",
-    function() updater.update_packages() end,
-    { desc = "Update Plugins and Mason" }
-  )
-  cmd(
     "NvimRollbackCreate",
     function() updater.create_rollback(true) end,
     { desc = "Create a rollback of '~/.config/nvim'." }

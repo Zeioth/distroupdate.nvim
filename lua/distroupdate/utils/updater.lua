@@ -101,16 +101,6 @@ function M.changelog(quiet)
   return summary
 end
 
---- Cancelled update message
-local cancelled_message = { { "Update cancelled", "WarningMsg" } }
-
---- Update lazy, mason, and treesitter.
-function M.update_packages()
-  require("lazy").sync { wait = true }  -- lazy install clean and update.
-  vim.cmd("silent! MasonUpdateAll")     -- mason update all.
-  vim.cmd("silent! TSUpdate all")       -- Treesitter update all.
-end
-
 --- Create a table of options for the currently installed Nvim version
 --- @param write? boolean Whether or not to write to the rollback file (default: false)
 --- @return table # The table of updater options
@@ -271,7 +261,7 @@ function M.update(opts)
         )
       )
   then
-    echo(cancelled_message)
+    echo({ { "Update cancelled", "WarningMsg" } })
     return
   else                      -- perform update
     M.create_rollback(true) -- create rollback file before updating
@@ -289,7 +279,7 @@ function M.update(opts)
           "Warning"
         )
     then
-      echo(cancelled_message)
+      echo({ { "Update cancelled", "WarningMsg" } })
       return
     end -- attempt an update
     local updated = attempt_update(target, opts)
