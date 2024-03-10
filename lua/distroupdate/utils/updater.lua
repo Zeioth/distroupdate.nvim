@@ -107,8 +107,8 @@ local cancelled_message = { { "Update cancelled", "WarningMsg" } }
 --- Update lazy, mason, and treesitter.
 function M.update_packages()
   require("lazy").sync { wait = true }  -- lazy install clean and update.
-  vim.cmd("MasonUpdateAll silent!")     -- mason update all.
-  vim.cmd("TSUpdate all silent!")       -- Treesitter update all.
+  vim.cmd("silent! MasonUpdateAll")     -- mason update all.
+  vim.cmd("silent! TSUpdate all")       -- Treesitter update all.
 
 end
 
