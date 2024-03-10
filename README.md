@@ -49,7 +49,6 @@ This plugin requires you to use lazy package manager
 | **:NvimDistroUpdate** | If the value of the option `channel` is `stable`, it will update from the latest available released version of the `remote` of the git repository of your nvim config. If the value of `channel` is `nightly`, it will update from the latest changes in the branch `nightly` of the git repository of you nvim config.|
 | **:NvimRollbackCreate** | Creates a recovery point. It is triggered automatically when running `:NvimDistroUpdate`. |
 | **:NvimRollbackRestore** | Uses git to bring your config to the state it had when `:NvimRollbackCreate` was called. |
-| **:NvimUpdatePlugins** | Uses lazy to update the plugins, Mason to update all your lsp servers, linters, DAP adapters, and formatters, and Treesitter to update all your treesitter parsers. |
 | **:NvimFreezePluginVersions** | Saves your current plugin versions into `lazy_versions.lua` in your config directory. You can import this file and pass it to your lazy config, so it respect your locked versions. [Check the option `spec` in lazy](https://github.com/folke/lazy.nvim). |
 | **:NvimVersion** | Prints the commit number of the current NormalNvim version. |
 
