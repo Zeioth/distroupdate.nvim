@@ -44,11 +44,24 @@ function M.setup(opts)
     function() updater.version() end,
     { desc = "Check Nvim distro Version" }
   )
-  -- cmd( ← There is no real reason for us to expose this.
-  --   "NvimHotReload",
-  --   function() require("distroupdate.utils").reload() end,
-  --   { desc = "Reload Nvim without closing it (Experimental)" }
-  -- )
+
+  -- Create extra Mason commands
+  cmd("MasonUpdate", function(options)
+    updater.update(options.fargs)
+  end, {
+    nargs = "*",
+    desc = "Update Mason Package",
+    complete = function(arg_lead)
+      local _ = require "mason-core.functional"
+      return _.sort_by(
+        _.identity,
+        _.filter(_.starts_with(arg_lead), require("mason-registry").get_installed_package_names())
+      )
+    end,
+  })
+  cmd("MasonUpdateAll", function()
+    updater.update_all()
+  end, { desc = "Update Mason Packages" })
 
   -- Autocmds
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -63,6 +76,8 @@ function M.setup(opts)
       end
     end
   })
+
+
 
 end
 
