@@ -28,7 +28,7 @@ If you are developing a Neovim distro, you can ship this plugin, and users will 
 Currently, running `:NvimDistroUpdate` will overwrite any uncommited change in your local nvim config.
 
 ## How to install
-On lazy
+This plugin requires you to use lazy package manager
 
 ```lua
 {
