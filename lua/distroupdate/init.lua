@@ -45,24 +45,6 @@ function M.setup(opts)
     { desc = "Check Nvim distro Version" }
   )
 
-  -- Create extra Mason commands
-  cmd("MasonUpdate", function(options)
-    updater.update(options.fargs)
-  end, {
-    nargs = "*",
-    desc = "Update Mason Package",
-    complete = function(arg_lead)
-      local _ = require "mason-core.functional"
-      return _.sort_by(
-        _.identity,
-        _.filter(_.starts_with(arg_lead), require("mason-registry").get_installed_package_names())
-      )
-    end,
-  })
-  cmd("MasonUpdateAll", function()
-    updater.update_all()
-  end, { desc = "Update Mason Packages" })
-
   -- Autocmds
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     desc = ":NvimReload if a `hot_reload_files` buf is written.",
@@ -76,8 +58,6 @@ function M.setup(opts)
       end
     end
   })
-
-
 
 end
 

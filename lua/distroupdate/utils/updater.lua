@@ -104,10 +104,12 @@ end
 --- Cancelled update message
 local cancelled_message = { { "Update cancelled", "WarningMsg" } }
 
---- Sync Packer and then update Mason
+--- Update lazy, mason, and treesitter.
 function M.update_packages()
-  require("lazy").sync { wait = true }
-  require("distroupdate.utils.mason").update_all()
+  require("lazy").sync { wait = true }  -- lazy install clean and update.
+  vim.cmd("MasonUpdateAll silent!")     -- mason update all.
+  vim.cmd("TSUpdate all silent!")       -- Treesitter update all.
+
 end
 
 --- Create a table of options for the currently installed Nvim version
