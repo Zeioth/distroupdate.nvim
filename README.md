@@ -33,10 +33,7 @@ This plugin requires you to use lazy package manager
 ```lua
 {
   "Zeioth/distroupgrade.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "Zeioth/mason-extra-cmds"
-  },
+  dependencies = "nvim-lua/plenary.nvim",
   event = "VeryLazy",
   opts = {}
 }
