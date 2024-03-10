@@ -4,14 +4,13 @@
 --  Functions used by the commands of distroupdate.nvim
 
 --    Functions:
---      -> generate_snapshot   → used by :NvimFreezePluginVersions.
---      -> version             → used by :NvimVersion.
---      -> changelog           → used by :NvimChangeLog.
---      -> update_packages     → used by :NvimUpdatePlugins.
---      -> create_rollback     → ured by :NvimRollbackCreate.
---      -> rollback            → used by :NvimRollbackRestore.
+--      -> generate_snapshot   → used by :DistroFreezePluginVersions.
+--      -> version             → used by :DistroReadVersion.
+--      -> changelog           → used by :DistroReadChangeLog.
+--      -> create_rollback     → called automatically on :DistroUpdate.
+--      -> rollback            → used by :DistroUpdateRevert.
 --      -> attempt_update      → helper for update.
---      -> update              → used by :NvimUpdateConfig.
+--      -> update              → used by :DistroUpdate.
 
 local utils = require "distroupdate.utils"
 local git = require "distroupdate.utils.git"
@@ -33,7 +32,7 @@ local function confirm_prompt(messages, type)
   ) == 1
 end
 
---- Helper function to generate Nvim snapshots (For internal use only)
+--- Helper function to generate a snapshot of the plugins currently installed.
 ---@param write? boolean Whether or not to write to the snapshot file (default: false)
 ---@return table # The plugin specification table of the snapshot
 function M.generate_snapshot(write)
@@ -79,9 +78,9 @@ function M.generate_snapshot(write)
   return snapshot
 end
 
---- Get the current Nvim version
+--- Get the current distro version
 --- @param quiet? boolean Whether to quietly execute or send a notification
---- @return string # The current Nvim version string
+--- @return string # The current distro version string
 function M.version(quiet)
   local version = git.current_version(false) or "unknown"
   if vim.g.distroupdate_config.channel ~= "stable" then
@@ -91,9 +90,9 @@ function M.version(quiet)
   return version
 end
 
---- Get the full Nvim changelog
+--- Get the full distro changelog
 --- @param quiet? boolean Whether to quietly execute or display the changelog
---- @return table # The current Nvim changelog table of commit messages
+--- @return table # The current distro changelog table of commit messages
 function M.changelog(quiet)
   local summary = {}
   vim.list_extend(summary, git.pretty_changelog(git.get_commit_range()))
@@ -101,7 +100,7 @@ function M.changelog(quiet)
   return summary
 end
 
---- Create a table of options for the currently installed Nvim version
+--- Create a table of options for the currently installed distro version
 --- @param write? boolean Whether or not to write to the rollback file (default: false)
 --- @return table # The table of updater options
 function M.create_rollback(write)
@@ -121,12 +120,12 @@ function M.create_rollback(write)
   utils.notify(
     "Rollback file created in ~/.cache/nvim\n\npointing to commit:\n"
     .. snapshot.commit
-    .. "  \n\nYou can use :NvimRollbackRestore to revert ~/.config to this state."
+    .. "  \n\nYou can use :DistroUpdateRevert to revert ~/.config to this state."
   )
   return snapshot
 end
 
---- Nvim's rollback to saved previous version function
+--- Distro rollback to saved previous version.
 function M.rollback()
   local rollback_avail, rollback_opts =
       pcall(dofile, vim.g.distroupdate_config.rollback_file)
@@ -138,7 +137,7 @@ function M.rollback()
 end
 
 
---- Attempt an update of Nvim
+--- Attempt an update of distro
 --- @param target string The target if checking out a specific tag or commit or nil if just pulling
 local function attempt_update(target, opts)
   -- if updating to a new stable version or a specific commit checkout the provided target
@@ -150,7 +149,7 @@ local function attempt_update(target, opts)
   end
 end
 
---- Nvim's updater function
+--- Distro updater function
 --- @param opts? table the settings to use for the update
 function M.update(opts)
   if not opts then opts = {
