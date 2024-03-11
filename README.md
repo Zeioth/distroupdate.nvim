@@ -80,7 +80,7 @@ All options described here are 100% optional and you don't need to define them t
         config_dir .. "1-options.lua",
         config_dir .. "4-mappings.lua"
       },
-      hot_reload_extra_behavior = function()
+      hot_reload_callback = function()
         vim.cmd ":silent! doautocmd ColorScheme"                     -- heirline colorscheme reload event.
         vim.cmd(":silent! colorscheme " .. base.default_colorscheme) -- nvim     colorscheme reload command.
       end
