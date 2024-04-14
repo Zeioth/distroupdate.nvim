@@ -59,7 +59,7 @@ All options described here are 100% optional and you don't need to define them t
 | **release_tag** | `nil` |  If this option is specified, the option `channel` will be ignored, and the updater will download the release you specify. The format must be semantic versioning, like: `"v1.0"`. |
 | **remote** | `origin` | Git remote of your distro repository. |
 | **snapshot_file** | `<nvim_config_dir>/lua/lazy_snapshot.lua` | File used by the command `:DistroFreezePluginVersions` to write the plugins. 
-| **rollback_file** | `<nvim_cache_dir>/rollback.lua` | Rollback file autocamically triggered by `:DistroUpdate`. This file will be used when you use `:DistroUpdateRevert`|
+| **rollback_file** | `<nvim_cache_dir>/rollback.lua` | Rollback file automatically triggered by `:DistroUpdate`. This file will be used when you use `:DistroUpdateRevert`|
 
 ## Example of a real config
 
