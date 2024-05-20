@@ -37,13 +37,43 @@ end
 ---@return table # The plugin specification table of the snapshot
 function M.generate_snapshot(write)
   local file
+
+  -- get snapshot
   local snapshot_filename =  vim.fn.fnamemodify(vim.g.distroupdate_config.snapshot_file, ':t:r')
   local prev_snapshot = require(snapshot_filename)
   for _, plugin in ipairs(prev_snapshot) do
     prev_snapshot[plugin[1]] = plugin
   end
-  local plugins = assert(require("lazy").plugins())
+
+  -- helper function to get all plugins except the ones without URL.
+  local function get_valid_plugins()
+    local plugins = {}
+    local all_plugins = assert(require("lazy").plugins())
+    local invalid = 0
+
+    -- exclude invalid plugins
+    for _, plugin in ipairs(all_plugins) do
+      local plugin_url = plugin[1]
+      if plugin_url ~= nil then
+        table.insert(plugins, plugin)
+      else
+        invalid = invalid + 1
+      end
+    end
+
+    -- warnings if any
+    if invalid > 0 then
+      utils.notify(invalid .. " Plugins not added to the snapshot: No URL found.", vim.log.levels.WARN)
+    end
+
+    return plugins
+  end
+
+  -- get plugins
+  local plugins = get_valid_plugins()
   table.sort(plugins, function(l, r) return l[1] < r[1] end)
+
+  -- operate
   local function git_commit(dir)
     local commit =
         assert(utils.cmd("git -C " .. dir .. " rev-parse HEAD", false))
