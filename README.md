@@ -96,3 +96,6 @@ Many of the GPL3 lua libraries this plugin use come from AstroNvim and NormalNvi
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
+
+## Roadmap
+* If local changes are gonna be lost after the update, we should notify the user and ask for confirmation. Ideally this should be a toogleable option.
