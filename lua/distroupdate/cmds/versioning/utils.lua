@@ -19,7 +19,8 @@ local M = {}
 function M.get_prev_snapshot_file()
   -- load the snapshot file as a Lua module (returns a table of plugins).
   local filename = vim.fn.fnamemodify(vim.g.distroupdate_config.snapshot_file, ':t:r')
-  local prev_snapshot = require(filename) or {}
+  local prev_snapshot = (pcall(require, filename) and require(filename)) or {}
+
 
   -- convert the list of plugins into a lookup table, indexed by plugin name.
   for _, plugin in ipairs(prev_snapshot) do
@@ -38,46 +39,58 @@ end
 function M.get_plugins(prev_snapshot)
   local plugins = assert(require("lazy").plugins()) -- Retrieve all plugins.
   local n_invalid_plugins = 0
+  local processed_plugins = {}
 
   -- Process them
   for _, plugin in ipairs(plugins) do
 
-    -- 1. skip invalid plugins (the ones without an url)
+    -- 1. skip invalid plugins (the ones without a URL)
     if not plugin[1] then
       n_invalid_plugins = n_invalid_plugins + 1
       goto continue
     end
 
-    -- 2. get current local git head from plugin_dir.
+    -- 2. get current local git head from plugin_dir
     local plugin_dir_head = (function(plugin_dir)
       local cmd_result = assert(utils.cmd("git -C " .. plugin_dir .. " rev-parse HEAD", false))
       local commit_hash = cmd_result and vim.trim(cmd_result)
       return commit_hash
-    end)(plugin.dir) -- lambda function
+    end)(plugin.dir)
 
-    -- 3. create a table with only the data we want.
-    plugin = {
-      plugin[1],                -- plugin name.
-      version = plugin.version, -- plugin versin.
-      commit = plugin_dir_head  -- plugin commit. (prevails over plugin.commit)
+    -- 3. create a table with only the data we want
+    local processed_plugin = {
+      plugin[1],                -- plugin name
+      version = plugin.version, -- plugin version
+      commit = plugin_dir_head, -- plugin commit (prevails over plugin.commit)
     }
 
     -- 4. if plugin has a version defined in prev_snapshot, it will prevail over plugin.version
-    local prev_snapshot_has_version_field = prev_snapshot[plugin[1]] and prev_snapshot[plugin[1]].version
-    if prev_snapshot_has_version_field then
-      plugin.version = prev_snapshot[plugin[1]].version
+    local prev_snapshot_version = prev_snapshot[plugin[1]] and prev_snapshot[plugin[1]].version
+    if prev_snapshot_version then
+      processed_plugin.version = prev_snapshot_version
     end
+
+    -- Add processed plugin to the list
+    table.insert(processed_plugins, processed_plugin)
 
     ::continue::
   end
 
-   if n_invalid_plugins > 0 then
+  -- Sort by plugin name.
+  table.sort(processed_plugins, function(a, b)
+    return a[1] < b[1]
+  end)
+
+
+  -- Notify if any invalid plugins were skipped
+  if n_invalid_plugins > 0 then
     utils.notify(n_invalid_plugins .. " Plugins not added to the snapshot: No URL found.", vim.log.levels.WARN)
   end
 
-  -- return the formatted plugin data.
-  return plugins
+  -- Return the processed plugins
+  return processed_plugins
 end
+
 
 --- Write the plugin snapshot to the file.
 --- @param plugins table The list of valid plugins.
