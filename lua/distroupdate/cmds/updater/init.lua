@@ -7,7 +7,7 @@
 --      -> update              → used by :DistroUpdate.
 
 local git = require("distroupdate.utils.git")
-local updater = require("lua.distroupdate.cmds.updater.utils")
+local updater = require("distroupdate.cmds.updater.utils")
 local versioning = require("distroupdate.cmds.versioning")
 
 local M = {}
