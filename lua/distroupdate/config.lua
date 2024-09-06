@@ -28,6 +28,6 @@ function M.set(opts)
 
   -- expose the config as global
   vim.g.distroupdate_config = M
-
-  return M
 end
+
+return M
