@@ -2,7 +2,8 @@
 
 local cmd = vim.api.nvim_create_user_command
 local config = require("distroupdate.config")
-local updater = require("distroupdate.utils.updater")
+local updater = require("distroupdate.cmds.updater")
+local versioning = require("distroupdate.cmds.versioning")
 
 local M = {}
 
@@ -12,17 +13,17 @@ function M.setup(opts)
   -- Create commands so the user can use the plugin.
   cmd(
     "DistroFreezePluginVersions",
-    function() updater.generate_snapshot(true) end,
+    function() versioning.freeze_plugin_versions() end,
     { desc = "Lock package versions (lazy)." }
   )
   cmd(
     "DistroReadChangelog",
-    function() updater.changelog() end,
+    function() versioning.print_changelog() end,
     { desc = "Check Nvim Changelog." }
   )
   cmd(
     "DistroReadVersion",
-    function() updater.version() end,
+    function() versioning.notify_version() end,
     { desc = "Check distro git Version." }
   )
   cmd(
@@ -31,24 +32,23 @@ function M.setup(opts)
   )
   cmd(
     "DistroUpdateRevert",
-    function() updater.rollback() end,
+    function() versioning.rollback() end,
     { desc = "Restores '~/.config/nvim' to the version it had before running :DistroUpdate." }
   )
 
   -- Autocmds
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-    desc = ":NvimReload if a `hot_reload_files` buf is written.",
+    desc = "DistroUpdate - reload `hot_reload_files` if buf is written.",
     callback = function()
-      local bufPath = vim.fn.expand "%:p"
-      for _, filePath in ipairs(opts.hot_reload_files) do
-        if filePath == bufPath then
+      local buf_path = vim.fn.expand("%:p")
+      for _, file_path in ipairs(opts.hot_reload_files) do
+        if file_path == buf_path then
           require("distroupdate.utils").reload()
           opts.hot_reload_callback()
         end
       end
     end
   })
-
 end
 
 return M

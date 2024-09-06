@@ -4,14 +4,44 @@
 --  General utility functions.
 
 --    Helpers:
---      -> reload                → Reload nvim settings.
---      -> extend_tbl            → Add the content of a table to another table.
---      -> notify                → Send a notification with the plugin title.
---      -> trigger_event         → Manually trigger a event.
 --      -> cmd                   → Run a shell command and return true/false.
+--      -> notify                → Send a notification with the plugin title.
+--      -> reload                → Reload nvim settings.
+--      -> trigger_event         → Manually trigger a event.
 --      -> os_path               → Convert a path to / (UNIX) or \ (Windows).
 
 local M = {}
+
+--- Run a shell command and capture the output and if the command
+--- succeeded or failed
+---@param cmd string|string[] The terminal command to execute
+---@param show_error? boolean Whether or not to show an unsuccessful command
+---                           as an error to the user
+---@return string|nil # The result of a successfully executed command or nil
+function M.cmd(cmd, show_error)
+  if type(cmd) == "string" then cmd = vim.split(cmd, " ") end
+  if vim.fn.has "win32" == 1 then cmd = vim.list_extend({ "cmd.exe", "/C" }, cmd) end
+  local result = vim.fn.system(cmd)
+  local success = vim.api.nvim_get_vvar "shell_error" == 0
+  if not success and (show_error == nil or show_error) then
+    vim.api.nvim_err_writeln(("Error running command %s\nError message:\n%s"):format(table.concat(cmd, " "), result))
+  end
+  return success and result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "") or nil
+end
+
+--- Serve a notification with a default title.
+---@param msg string The notification body.
+---@param type number|nil The type of the notification (:help vim.log.levels).
+---@param opts? table The nvim-notify options to use (:help notify-options).
+function M.notify(msg, type, opts)
+vim.schedule(function()
+  vim.notify(msg, type,
+      vim.tbl_deep_extend(
+        "force", { title = "Distroupdate.nvim" }, opts or {})
+    )
+end)
+
+end
 
 --- Partially reload Nvim user settings. Includes core vim options, mappings,
 --- and highlights. This is an experimental feature and may lead to.
@@ -54,24 +84,6 @@ function M.reload(quiet)
   return success
 end
 
---- Merge extended options with a default table of options
----@param default? table The default table that you want to merge into
----@param opts? table The new options that should be merged with the default table
----@return table # The merged table
-function M.extend_tbl(default, opts)
-  opts = opts or {}
-  return default and vim.tbl_deep_extend("force", default, opts) or opts
-end
-
---- Serve a notification with a default title.
----@param msg string The notification body.
----@param type number|nil The type of the notification (:help vim.log.levels).
----@param opts? table The nvim-notify options to use (:help notify-options).
-function M.notify(msg, type, opts)
-  vim.schedule(function() vim.notify(
-    msg, type, M.extend_tbl({ title = "Distroupdate.nvim" }, opts)) end)
-end
-
 --- Convenient wapper to save code when we Trigger events.
 ---@param event string Name of the event.
 -- @usage To run a User event:   `trigger_event("User MyUserEvent")`
@@ -91,26 +103,9 @@ function M.trigger_event(event)
   end)
 end
 
---- Run a shell command and capture the output and if the command
---- succeeded or failed
----@param cmd string|string[] The terminal command to execute
----@param show_error? boolean Whether or not to show an unsuccessful command
----                           as an error to the user
----@return string|nil # The result of a successfully executed command or nil
-function M.cmd(cmd, show_error)
-  if type(cmd) == "string" then cmd = vim.split(cmd, " ") end
-  if vim.fn.has "win32" == 1 then cmd = vim.list_extend({ "cmd.exe", "/C" }, cmd) end
-  local result = vim.fn.system(cmd)
-  local success = vim.api.nvim_get_vvar "shell_error" == 0
-  if not success and (show_error == nil or show_error) then
-    vim.api.nvim_err_writeln(("Error running command %s\nError message:\n%s"):format(table.concat(cmd, " "), result))
-  end
-  return success and result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "") or nil
-end
-
 --- Given a path, return its nvim module.
 ---@param path string Path of a file inside your nvim config directory.
----@return module string A string which is the module of the file path.
+---@return string module A string which is the module of the file path.
 ---@example  filepath_to_module(/home/user/.config/nvim/lua/base/1-options.lua)  -- returns "base.1-options"
 function M.filepath_to_module(path)
     local filename = path:gsub("^.*[\\/]", "")  -- Remove leading directory path
@@ -136,8 +131,26 @@ end
 function M.os_path(path)
   if path == nil then return nil end
   -- Get the platform-specific path separator
-  local separator = package.config:sub(1,1)
+  local separator =  package.config:sub(1,1)
   return string.gsub(path, '[/\\]', separator)
+end
+
+
+---if no parameter provided, echo a new line
+---@param messages table A table like { {""}, {""}... }
+ function M.echo(messages)
+  messages = messages or { { "\n" } }
+  if type(messages) == "table" then vim.api.nvim_echo(messages, false, {}) end
+end
+
+---Prompt the user to confirm.
+function M.confirm_prompt(messages, type)
+  return vim.fn.confirm(
+    messages,
+    "&Yes\n&No",
+    (type == "Error" or type == "Warning") and 2 or 1,
+    type or "Question"
+  ) == 1
 end
 
 return M

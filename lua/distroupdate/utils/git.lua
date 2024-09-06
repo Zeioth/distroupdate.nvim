@@ -1,7 +1,7 @@
 --- ### Git api
 --
 --  DESCRIPTION:
---  Functions used by the updater to control git.
+--  Functions used by the commands to control git.
 
 --    Helpers:
 --      -> git.cmd              → Used to run git commands.
@@ -45,11 +45,11 @@ function git.cmd(args, ...)
   return utils.cmd(vim.list_extend({ "git", "-C", config_dir }, args), ...)
 end
 
---- Check if the Nvim is able to reach the `git` command.
+--- Check if Neovim is able to reach the `git` command.
 ---@return boolean # The result of running `git --help`.
 function git.available() return vim.fn.executable "git" == 1 end
 
---- Check if the Nvim home is a git repo.
+--- Check if the nvim config directory is a git repo.
 ---@return string|nil # ~he result of the command.
 function git.is_repo()
   return git.cmd({ "rev-parse", "--is-inside-work-tree" }, false)
@@ -134,7 +134,7 @@ function git.current_version(...)
 end
 
 --- Get the current branch.
----@return string|nil # The branch of the Nvim installation.
+---@return string|nil # The current git branch of the nvim config directory.
 function git.current_branch(...)
   return trim_or_nil(git.cmd({ "rev-parse", "--abbrev-ref", "HEAD" }, ...))
 end
