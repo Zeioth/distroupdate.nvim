@@ -35,7 +35,8 @@ function M.notify_version()
   utils.notify("Version: " .. version)
 end
 
---- Print the full distro changelog
+--- Print the full distro changelog.
+--- Unlike `updater.print_changelog()`, which only prints the update changes.
 function M.print_changelog()
   local summary = {}
   vim.list_extend(summary, git.pretty_changelog(git.get_commit_range()))

@@ -34,13 +34,12 @@ end
 ---@param type number|nil The type of the notification (:help vim.log.levels).
 ---@param opts? table The nvim-notify options to use (:help notify-options).
 function M.notify(msg, type, opts)
-vim.schedule(function()
-  vim.notify(msg, type,
+  vim.schedule(function()
+    vim.notify(msg, type,
       vim.tbl_deep_extend(
         "force", { title = "Distroupdate.nvim" }, opts or {})
     )
-end)
-
+  end)
 end
 
 --- Partially reload Nvim user settings. Includes core vim options, mappings,
