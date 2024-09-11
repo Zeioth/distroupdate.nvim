@@ -58,9 +58,9 @@ function M.fetch_from_remote()
 
   -- Print remote to use
   utils.echo({
-    { "Checking remote... " },
+    { "Git remote " },
     { config.remote,                 "Title" },
-    { "Git remote currently set to " },
+    { " currently set to " },
     { url,                           "WarningMsg" },
     { "..." },
   })
@@ -98,8 +98,16 @@ function M.git_checkout()
       { config.remote .. "/" .. config.branch .. "\n\n", "String" },
     }
 
-    -- do operation
-    if not git.checkout(formatted_remote_branch, false) then
+    -- reset uncommited changes to ensure checkout doesn't fail. (current branch)
+    -- (alternatively, we could stash)
+    if config.ovewrite_uncommited_local_changes then
+      git.hard_reset(git.local_head())
+    end
+
+    -- do checkout
+    local result_ok = git.checkout(formatted_remote_branch, false)
+    if not result_ok then
+      -- branch doesn't exists locally; create it from remote.
       git.checkout(
         "-b " .. formatted_remote_branch .. " " .. config.remote .. "/" .. config.branch,
         false
@@ -133,7 +141,7 @@ function M.get_target_commit()
   end
 
   -- 2. channel is stable.
-  if config.channel == "stable" then -- get the specified version
+  if config.branch == "main" then -- get the specified version
     local target_version = git.latest_version(git.get_versions(config.release_tag))
     if not target_version then
       vim.api.nvim_err_writeln("Error finding version: " .. config.release_tag)
@@ -143,8 +151,8 @@ function M.get_target_commit()
     return git_target_commit
   end
 
-  -- 3. channel is nightly
-  if config.channel == "nightly" then -- get most recent commit
+  -- 3. channel is nightly/other
+  if config.branch ~= "main" then -- get most recent commit
     local most_recent_commit = git.remote_head(config.remote, config.branch)
     local git_target_commit = most_recent_commit
     return git_target_commit
@@ -157,7 +165,7 @@ end
 --- @return boolean success returns `false` if there are no updates available.
 function M.updates_available(git_head_commit, git_target_commit)
   if not git_head_commit or not git_target_commit then
-    vim.api.nvim_err_writeln "Error checking for updates"
+    vim.api.nvim_err_writeln("Error checking for updates")
     return false
   end
 
@@ -177,7 +185,7 @@ function M.confirm_update(git_target_commit)
   local config = vim.g.distroupdate_config
   local version = git.latest_version(git.get_versions(config.release_tag))
 
-  local update_canceled = not config.skip_prompts
+  local update_canceled = not config.auto_accept_prompts
       and not utils.confirm_prompt(
         ("Update avavilable to %s\nUpdating requires a restart, continue?"):format(
           config.branch == "main" and version or git_target_commit
@@ -199,12 +207,11 @@ function M.confirm_breaking_changes(changelog)
 
   local breaking = git.breaking_changes(changelog)
   local update_canceled = #breaking > 0
-      and not config.skip_prompts
+      and not config.auto_accept_prompts
       and not utils.confirm_prompt(
-        ("Update contains the following breaking changes:\n%s\nWould you like to continue?"):format(
+        ("It contains the following breaking changes:\n%s\n\nWould you like to continue?"):format(
           table.concat(breaking, "\n")
-        ),
-        "Warning"
+        ), "WarningMsg"
       )
 
   if update_canceled then
@@ -224,13 +231,16 @@ function M.attempt_update(git_head_commit, git_target_commit)
   local config = vim.g.distroupdate_config
   local result = nil
 
-  -- This will prevent git from failing if there are uncommited local changes.
-  if git_head_commit then git.hard_reset(git_head_commit) end
+  -- reset uncommited changes to ensure checkout doesn't fail. (target branch)
+  if config.ovewrite_uncommited_local_changes and git_head_commit then
+    git.hard_reset(git_head_commit)
+  end
 
-  -- if updating to a new stable version or a specific commit, checkout target commit
-  if config.channel == "stable" and git_target_commit then
+  if config.branch == "main" and git_target_commit then
+    -- for sable versions, checkout target commit.
     result = git.checkout(git_target_commit, false)
-  else -- if no target, pull the latest changes.
+  else
+    -- for nightly/other, pull the latest changes from the current branch.
     result = git.pull(false)
   end
 
@@ -243,29 +253,32 @@ function M.attempt_update(git_head_commit, git_target_commit)
   return true
 end
 
---- Prints the changelog passed as parameter in a certain format.
+--- Prints the changelog passed as parameter in the specified format.
+---
+--- Note: be aware lazy update will close the changelog, so you might want
+---       to run this function afterwards.
 --- @param changelog string[] A table returned by the function `git.get_commit_range()`.
 function M.print_changelog(changelog)
   local config = vim.g.distroupdate_config
 
   -- print a summary of the update with the changelog
   local summary = {
-    { "Nvim updated successfully to ", "Title" },
-    { git.current_version(),           "String" },
-    { "!\n",                           "Title" },
+    { "Neovim updated successfully to ", "Title" },
+    { git.current_version(),             "String" },
+    { "!\n",                             "Title" },
     {
-      config.auto_quit and "Nvim will now update plugins and quit.\n\n"
+      config.on_update_auto_quit and "Neovim will now update plugins and quit.\n\n"
       or "After plugins update, please restart.\n\n",
       "WarningMsg",
     },
   }
 
-  if config.show_changelog and #changelog > 0 then
+  if config.on_update_show_changelog and #changelog > 0 then
     vim.list_extend(summary, { { "Changelog:\n", "Title" } })
     vim.list_extend(summary, git.pretty_changelog(changelog))
+    utils.echo(summary)
   end
 
-  utils.echo(summary)
 end
 
 --- Call lazy to update the plugins,
@@ -280,14 +293,16 @@ function M.trigger_post_update_events()
     pattern = "DistroUpdateCompleted",
     callback = function()
       if config.on_update_auto_quit then
-        vim.command("quitall")
+        vim.cmd("quitall")
       end
     end,
   })
 
   -- Reload lazy, then sync plugins.
-  require("lazy.core.plugin").load()
-  require("lazy").sync({ wait = true })
+  if config.update_plugins then
+    require("lazy.core.plugin").load()
+    require("lazy").sync({ wait = true })
+  end
   utils.trigger_event("User DistroUpdateCompleted")
 end
 
