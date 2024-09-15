@@ -129,4 +129,4 @@ So please support both projects if you enjoy this plugin.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
 
 ## Roadmap
-* If local changes are gonna be lost after the update, we should notify the user and ask for confirmation. Ideally this should be a toogleable option.
+* It would ideal to write unit tests to ensure we don't introduce regressions or breaking changes in future versions.
