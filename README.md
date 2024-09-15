@@ -121,14 +121,13 @@ Options to configure the extra feature `hot reload`.
 ```
 
 ## How to pass the plugins file to lazy
-If you've used `:DistroFreezePluginVersions` you might be wondering how to tell lazy how to use that file. You can find an example [here](https://github.com/NormalNvim/NormalNvim/blob/main/lua/base/2-lazy.lua).
+If you've used `:DistroFreezePluginVersions` you have to pass the generated file to lazy, so it can use it. For that use the `spec` option. You can find an example [here](https://github.com/NormalNvim/NormalNvim/blob/main/lua/base/2-lazy.lua).
 
 ## Credits
 The GPL3 lua libraries this plugin use come from NormalNvim (Full rewrite) and AstroNvim (Foundation and git wrapper).
 So please support both projects if you enjoy this plugin.
 
 ## FAQ
-
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
 * **Why not just using lazy alone?** If lazy covers your case of use, that's totally fine. But there will be scenarios where you are gonna need distroupdate.
