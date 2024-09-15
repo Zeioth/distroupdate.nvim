@@ -131,3 +131,4 @@ So please support both projects if you enjoy this plugin.
 
 ## Roadmap
 * It would be ideal to write unit tests to ensure we don't introduce regressions or breaking changes in future versions.
+* It would be cleaner to move `hot_reload` to a new plugin whith that sole responsability.
