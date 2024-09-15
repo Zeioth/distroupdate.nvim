@@ -60,7 +60,7 @@ function M.fetch_from_remote()
   utils.echo({
     { "Git remote " },
     { config.remote,                 "Title" },
-    { " currently set to " },
+    { " currently set to\n" },
     { url,                           "WarningMsg" },
     { "..." },
   })
