@@ -44,21 +44,13 @@ This plugin requires you to use lazy package manager
 
 ## Available commands
 
-| Command                        | Description                                                        |
-|--------------------------------|--------------------------------------------------------------------|
-| **:DistroUpdate**              | If the value of the option `channel` is `stable`, it will update   |
-|                                | from the latest available released version of the `remote` of the  |
-|                                | git repository of your nvim config. If the value of `channel` is   |
-|                                | `nightly`, it will update from the latest changes in the branch    |
-|                                | `nightly` of the git repository of your nvim config.               |
-| **:DistroUpdateRevert**        | Uses git to bring your config to the state it had before running   |
-|                                | `:DistroUpdate`.                                                   |
-| **:DistroFreezePluginVersions**| Saves your current plugin versions into `lazy_versions.lua` in     |
-|                                | your config directory. You can import this file and pass it to     |
-|                                | your lazy config, so it respects your locked versions. [Check the  |
-|                                | option `spec` in lazy](https://github.com/folke/lazy.nvim).        |
-| **:DistroReadVersion**         | Prints the commit number of the current distro version.            |
-| **:DistroReadChangelog**       | Prints the changelog of the last update.                           |
+| Command                          | Description                                                                                             |
+|----------------------------------|---------------------------------------------------------------------------------------------------------|
+| **:DistroUpdate**                | If the value of the option `channel` is `stable`, it will update from the latest available released version of the `remote` of the git repository of your nvim config. If the value of `channel` is `nightly`, it will update from the latest changes in the branch `nightly` of the git repository of your nvim config. |
+| **:DistroUpdateRevert**          | Uses git to bring your config to the state it had before running `:DistroUpdate`.                        |
+| **:DistroFreezePluginVersions**  | Saves your current plugin versions into `lazy_versions.lua` in your config directory. You can import this file and pass it to your lazy config, so it respects your locked versions. [Check the option `spec` in lazy](https://github.com/folke/lazy.nvim). |
+| **:DistroReadVersion**           | Prints the commit number of the current distro version.                                                  |
+| **:DistroReadChangelog**         | Prints the changelog of the last update.                                                                 |
 
 ## Available options
 All options described here are 100% optional and you don't need to define them to use this plugin.
@@ -66,66 +58,38 @@ All options described here are 100% optional and you don't need to define them t
 ### Updater options
 Options to configure what version/commit will be downloaded.
 
-| Name                 | Default value                                  | Description                            |
-|----------------------|------------------------------------------------|----------------------------------------|
-| **channel**          | `stable`                                       | Channel used by the command            |
-|                      |                                                | `:DistroUpdate`. `stable` will update  |
-|                      |                                                | the distro from the latest available   |
-|                      |                                                | released version of your git           |
-|                      |                                                | repository. `nightly` will update the  |
-|                      |                                                | distro from the main branch of your    |
-|                      |                                                | git repository.                        |
-| **commit**           | `nil`                                          | If this option is specified,           |
-|                      |                                                | it will prevail over `release_tag`     |
-|                      |                                                | and `channel`.                         |
-| **release_tag**      | `nil`                                          | If this option is specified, it will   |
-|                      |                                                | prevail over `channel`. The format must |
-|                      |                                                | be semantic versioning, like: `"v1.0"`.|
+| Name                | Default value  | Description                                                                                                                                                          |
+|---------------------|----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **channel**         | `stable`       | Channel used by the command `:DistroUpdate`. `stable` will update the distro from the latest available released version of your git repository. `nightly` will update the distro from the main branch of your git repository. |
+| **commit**          | `nil`          | If this option is specified, it will prevail over `release_tag` and `channel`.                                                                                        |
+| **release_tag**     | `nil`          | If this option is specified, it will prevail over `channel`. The format must be semantic versioning, like: `"v1.0"`.                                                  |
 
 ### Updater misc options
 Options to configure what happen during the update.
 
-
-| Name                            | Default value                       | Description                            |
-|---------------------------------|-------------------------------------|----------------------------------------|
-| **ovewrite_uncommited_changes** | `true`                              | If true, uncommited local changes will be lost. If false, the update will fail with an error            |
-| **update_plugins** | `true`                              | If true, after `:DistroUpdate` plugins will update automatically before closing Neovim. If false, you will have to update them manually using lazy.            |
-| **on_update_show_changelog** | `true`                              | If true, after `:DistroUpdate`, the changes of the new version will be displayed.        |
-| **on_update_auto_quit** | `true`                              | If true, after `:DistroUpdate`, Neovim will close automatically. If false, you will have to close it manually to ensure stability.       |
- | **auto_accept_prompts** | `true`                              | If true, all prompts in `:DistroUpdate` will be accepted automatically.       |
+| Name                          | Default value  | Description                                                                                                                          |
+|-------------------------------|----------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| **overwrite_uncommitted_changes** | `true`         | If true, uncommitted local changes will be lost. If false, the update will fail with an error.                                        |
+| **update_plugins**             | `true`         | If true, after `:DistroUpdate`, plugins will update automatically before closing Neovim. If false, you will have to update them manually using lazy. |
+| **on_update_show_changelog**   | `true`         | If true, after `:DistroUpdate`, the changes of the new version will be displayed.                                                     |
+| **on_update_auto_quit**        | `true`         | If true, after `:DistroUpdate`, Neovim will close automatically. If false, you will have to close it manually to ensure stability.     |
+| **auto_accept_prompts**        | `true`         | If true, all prompts in `:DistroUpdate` will be accepted automatically.                                                              |
 
 ### Versioning options
 Options to configure where to store the plugins file and the rollback file.
 
-| Name                 | Default value                                  | Description                            |
-|----------------------|------------------------------------------------|----------------------------------------|
-| **snapshot_file**    | `<nvim_config_dir>/lua/lazy_snapshot.lua`      | File used by the command               |
-|                      |                                                | `:DistroFreezePluginVersions` to       |
-|                      |                                                | write the plugins.                     |
-| **rollback_file**    | `<nvim_cache_dir>/rollback.lua`                | Rollback file automatically triggered  |
-|                      |                                                | by `:DistroUpdate`. This file will     |
-|                      |                                                | be used when you use                   |
-|                      |                                                | `:DistroUpdateRevert`.                 |
+| Name              | Default value                                  | Description                                                                 |
+|-------------------|------------------------------------------------|-----------------------------------------------------------------------------|
+| **snapshot_file**  | `<nvim_config_dir>/lua/lazy_snapshot.lua`      | File used by the command `:DistroFreezePluginVersions` to write the plugins. |
+| **rollback_file**  | `<nvim_cache_dir>/rollback.lua`                | Rollback file automatically triggered by `:DistroUpdate`. This file will be used when you use `:DistroUpdateRevert`. |
 
 ### Hot reload options
 Options to configure the extra feature `hot reload`.
 
-| Name                 | Default value                                  | Description                            |
-|----------------------|------------------------------------------------|----------------------------------------|
-| **hot_reload_files** | `{}`                                           | The files included will be hot         |
-|                      |                                                | reloaded every time you write them.    |
-|                      |                                                | This way you can see the changes in    |
-|                      |                                                | your config reflected without having   |
-|                      |                                                | to restart nvim. For example:          |
-|                      |                                                | `{ my_nvim_opts_file,                  |
-|                      |                                                | my_nvim_mappings_file}`. Be aware      |
-|                      |                                                | this feature is experimental, and      |
-|                      |                                                | might not work in all cases yet.       |
-| **hot_reload_callback**| `function() end`                             | (optional) Extra things to do after    |
-|                      |                                                | the files defined in the option        |
-|                      |                                                | `hot_reload_files` are reloaded. For   |
-|                      |                                                | example: This can be handy if you      |
-|                      |                                                | want to re-apply your theme.           |
+| Name                 | Default value              | Description                                                                                                                          |
+|----------------------|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| **hot_reload_files**  | `{}`                       | The files included will be hot reloaded every time you write them. This way you can see the changes in your config reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
+| **hot_reload_callback** | `function() end`         | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
 
 ## Example of a real config
 
@@ -156,7 +120,7 @@ Options to configure the extra feature `hot reload`.
 ```
 
 ## Credits
-The GPL3 lua libraries this plugin use come from AstroNvim and NormalNvim.
+The GPL3 lua libraries this plugin use come from NormalNvim (Full rewrite) and AstroNvim (Foundation and git wrapper).
 So please support both projects if you enjoy this plugin.
 
 ## FAQ
