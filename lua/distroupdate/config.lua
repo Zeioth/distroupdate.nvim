@@ -25,7 +25,7 @@ function M.set(opts)
   -- No released_tag? set it to latest
   if not M.release_tag then M.release_tag = "latest" end
 
-  -- UPDATER MISC OPTS
+  -- UPDATER UX OPTS
   M.ovewrite_uncommited_local_changes = set_default(opts.ovewrite_uncommited_local_changes, true)
   M.update_plugins = set_default(opts.update_plugins, true)
   M.on_update_show_changelog = set_default(opts.on_update_show_changelog, true)
@@ -34,7 +34,7 @@ function M.set(opts)
 
   -- VERSIONING OPTS
   M.rollback_file = opts.rollback_file or utils.os_path(vim.fn.stdpath "cache" .. "/rollback.lua")
-  M.plugins_file = opts.plugins_file or utils.os_path(vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua")
+  M.snapshot_file = opts.snapshot_file or utils.os_path(vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua")
 
   -- HOT RELOAD OPTS
   M.hot_reload_callback = opts.hot_reload_exta_behavior or function() end
