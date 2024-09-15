@@ -128,6 +128,7 @@ So please support both projects if you enjoy this plugin.
 
 * **Is this plugin automatic?** NO. This plugin will do nothing unless you run one of its commands.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
+* **Why not just using lazy alone?** If lazy covers your case of use, that's totally fine. But there will be some scenarios where you will need distroupdate.
 
 ## Roadmap
 * It would be ideal to write unit tests to ensure we don't introduce regressions or breaking changes in future versions.
