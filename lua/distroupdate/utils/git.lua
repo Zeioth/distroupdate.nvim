@@ -1,7 +1,7 @@
 --- ### Git api
 --
 --  DESCRIPTION:
---  Functions used by the updater to control git.
+--  Functions used by the commands to control git.
 
 --    Helpers:
 --      -> git.cmd              → Used to run git commands.
@@ -35,21 +35,21 @@ local function trim_or_nil(str)
   return type(str) == "string" and vim.trim(str) or nil
 end
 
---- Run a git command from the Nvim installation directory.
+--- Run a git command from the Neovim config dir.
 ---@param args string|string[] the git arguments.
 ---@return string|nil # The result of the command or nil if unsuccessful.
 function git.cmd(args, ...)
-  local utils = require "distroupdate.utils"
-  local config_dir = vim.fn.stdpath "config"
+  local utils = require("distroupdate.utils")
+  local config_dir = vim.fn.stdpath("config")
   if type(args) == "string" then args = { args } end
   return utils.cmd(vim.list_extend({ "git", "-C", config_dir }, args), ...)
 end
 
---- Check if the Nvim is able to reach the `git` command.
+--- Check if Neovim is able to reach the `git` command.
 ---@return boolean # The result of running `git --help`.
-function git.available() return vim.fn.executable "git" == 1 end
+function git.available() return vim.fn.executable("git") == 1 end
 
---- Check if the Nvim home is a git repo.
+--- Check if the nvim config directory is a git repo.
 ---@return string|nil # ~he result of the command.
 function git.is_repo()
   return git.cmd({ "rev-parse", "--is-inside-work-tree" }, false)
@@ -134,7 +134,7 @@ function git.current_version(...)
 end
 
 --- Get the current branch.
----@return string|nil # The branch of the Nvim installation.
+---@return string|nil # The current git branch of the nvim config directory.
 function git.current_branch(...)
   return trim_or_nil(git.cmd({ "rev-parse", "--abbrev-ref", "HEAD" }, ...))
 end
@@ -222,7 +222,14 @@ end
 ---@param commits string[] an array like table of commit messages.
 ---@return string[] # An array like table of commits that are breaking.
 function git.breaking_changes(commits)
-  return vim.tbl_filter(git.is_breaking, commits)
+  local breaking_changes = vim.tbl_filter(git.is_breaking, commits)
+
+  -- optional: format the text.
+  for i, change in ipairs(breaking_changes) do
+    breaking_changes[i] = "- " .. change:gsub("format:%s*", ""):gsub('"', "")
+  end
+
+  return breaking_changes
 end
 
 --- Generate a table of commit messages for neovim's echo API with highlighting.
