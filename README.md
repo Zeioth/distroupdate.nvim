@@ -50,7 +50,7 @@ This plugin requires you to use lazy package manager
 | **:DistroUpdateRevert**          | Uses git to bring your config to the state it had before running `:DistroUpdate`.                        |
 | **:DistroFreezePluginVersions**  | Saves your current plugin versions into `lazy_versions.lua` in your config directory. You can import this file and pass it to your lazy config, so it respects your locked versions. [Check the option `spec` in lazy](https://github.com/folke/lazy.nvim). |
 | **:DistroReadVersion**           | Prints the commit number of the current distro version.                                                  |
-| **:DistroReadChangelog**         | Prints the changelog of the last update.                                                                 |
+| **:DistroReadChangelog**         | Prints the changelog.                                                                                    |
 
 ## Available options
 All options described here are 100% optional and you don't need to define them to use this plugin.
