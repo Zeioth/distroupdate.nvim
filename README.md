@@ -65,7 +65,7 @@ Options to configure what version/commit will be downloaded.
 | **release_tag**     | `nil`          | If this option is specified, it will prevail over `channel`. The format must be semantic versioning, like: `"v1.0"`.                                                  |
 | **remote** | `origin`| If you have multiple remotes, you can specify the one to use with this option. |
 
-### Updater misc options
+### Updater UX options
 Options to configure what happen during the update.
 
 | Name                          | Default value  | Description                                                                                                                          |
