@@ -20,13 +20,18 @@ local M = {}
 ---@return string|nil # The result of a successfully executed command or nil
 function M.cmd(cmd, show_error)
   if type(cmd) == "string" then cmd = vim.split(cmd, " ") end
-  if vim.fn.has "win32" == 1 then cmd = vim.list_extend({ "cmd.exe", "/C" }, cmd) end
+  if vim.fn.has("win32") == 1 then cmd = vim.list_extend({ "cmd.exe", "/C" }, cmd) end
   local result = vim.fn.system(cmd)
   local success = vim.api.nvim_get_vvar "shell_error" == 0
   if not success and (show_error == nil or show_error) then
     vim.api.nvim_err_writeln(("Error running command %s\nError message:\n%s"):format(table.concat(cmd, " "), result))
   end
-  return success and result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "") or nil
+
+  -- This line strips out escape sequences and control characters often present
+  -- in terminal output, such as ANSI escape codes used for coloring or formatting.
+  local stripped_result = result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "")
+
+  return success and stripped_result or nil
 end
 
 --- Serve a notification with a default title.
@@ -143,9 +148,11 @@ end
 end
 
 ---Prompt the user to confirm.
-function M.confirm_prompt(messages, type)
+---@param message string A table like { {""}, {""}... }
+---@param type? string It can be `Error`, `Warning`, or `Question`.
+function M.confirm_prompt(message, type)
   return vim.fn.confirm(
-    messages,
+    message,
     "&Yes\n&No",
     (type == "Error" or type == "Warning") and 2 or 1,
     type or "Question"

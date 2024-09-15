@@ -38,7 +38,11 @@ end
 --- Print the full distro changelog.
 --- Unlike `updater.print_changelog()`, which only prints the update changes.
 function M.print_changelog()
-  local summary = {}
+  local summary = {
+    { "Distro Version: ",    "Title" },
+    { git.current_version(), "String" },
+    { "\nChangelog:\n\n",    "Title" }
+  }
   vim.list_extend(summary, git.pretty_changelog(git.get_commit_range()))
   utils.echo(summary)
 end
@@ -66,21 +70,45 @@ function M.create_rollback_file(write)
   utils.notify(
     "Rollback file created in ~/.cache/nvim\n\npointing to commit:\n"
     .. snapshot.commit
-    .. "  \n\nYou can use :DistroUpdateRevert to revert ~/.config to this state."
+    .. "  \n\nYou can use :DistroUpdateRevert to revert your distro to this state."
   )
 
   return snapshot
 end
 
 --- Distro rollback to the commit specified by the function `create_rollback`.
+--- @return boolean success returns `false` if there are errors during the rollback.
 function M.rollback()
-  local rollback_avail, rollback_opts =
+  local updater = require("distroupdate.cmds.updater")
+  local config = vim.g.distroupdate_config
+
+  -- read snapshot
+  local rollback_file_exists, rollback_opts =
       pcall(dofile, vim.g.distroupdate_config.rollback_file)
-  if not rollback_avail then
+  if not rollback_file_exists then
     utils.notify("No rollback file available", vim.log.levels.ERROR)
-    return
+    return false
   end
-  M.update(rollback_opts)
+
+  -- set config → rollback opts
+  vim.g.distroupdate_config = vim.tbl_deep_extend("force",
+    vim.g.distroupdate_config or {}, {
+      branch = rollback_opts.branch,
+      commit = rollback_opts.commit,
+      remote = rollback_opts.remote,
+    }
+  )
+
+  -- perform rollback
+  local remote_url = git.remote_url(config.remote) -- store original value
+  git.remote_update(rollback_opts.remote, rollback_opts.remotes[rollback_opts.remote])
+  updater.update()
+  git.remote_update(config.remote, remote_url)
+
+  -- set config → original opts
+  vim.g.distroupdate_config = config
+
+  return true
 end
 
 return M
