@@ -63,7 +63,7 @@ Options to configure what version/commit will be downloaded.
 | **channel**         | `stable`       | Channel used by the command `:DistroUpdate`. `stable` will update the distro from the latest available released version of your git repository. `nightly` will update the distro from the main branch of your git repository. |
 | **commit**          | `nil`          | If this option is specified, it will prevail over `release_tag` and `channel`.                                                                                        |
 | **release_tag**     | `nil`          | If this option is specified, it will prevail over `channel`. The format must be semantic versioning, like: `"v1.0"`.                                                  |
-| **remote** | `origin`| If you multiple remotes configured, you can specify it with this options. |
+| **remote** | `origin`| If you multiple remotes configured, you can specify the one to use with this options. |
 
 ### Updater misc options
 Options to configure what happen during the update.
