@@ -129,4 +129,4 @@ So please support both projects if you enjoy this plugin.
 * **Where do the updates come from?** From your own git repo. You are the only one in control.
 
 ## Roadmap
-* It would ideal to write unit tests to ensure we don't introduce regressions or breaking changes in future versions.
+* It would be ideal to write unit tests to ensure we don't introduce regressions or breaking changes in future versions.
