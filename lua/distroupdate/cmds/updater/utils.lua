@@ -199,21 +199,32 @@ function M.confirm_update(git_target_commit)
   end
 end
 
+
+
 --- Prompt the user to confirm the update.
 --- @param changelog string[] A table returned by the function `git.get_commit_range()`.
 --- @return boolean success If `false`, it means the user canceled the update.
 function M.confirm_breaking_changes(changelog)
   local config = vim.g.distroupdate_config
+  local breaking_changes = git.breaking_changes(changelog)
 
-  local breaking = git.breaking_changes(changelog)
-  local update_canceled = #breaking > 0
+  -- Show breaking changes
+  utils.echo({
+    { "It contains the following breaking changes:\n", "WarningMsg" },
+    {
+      string.format(
+        "%s\n",
+        table.concat(breaking_changes, "\n")
+      ), "ErrorMsg"
+    }
+  })
+
+  -- Ask to confirm
+  local update_canceled = #breaking_changes > 0
       and not config.auto_accept_prompts
-      and not utils.confirm_prompt(
-        ("It contains the following breaking changes:\n%s\n\nWould you like to continue?"):format(
-          table.concat(breaking, "\n")
-        ), "WarningMsg"
-      )
+      and not utils.confirm_prompt("Would you like to continue?")
 
+  --If canceled, show it.
   if update_canceled then
     utils.echo({ { "Update cancelled", "WarningMsg" } })
     return false

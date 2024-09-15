@@ -35,7 +35,7 @@ local function trim_or_nil(str)
   return type(str) == "string" and vim.trim(str) or nil
 end
 
---- Run a git command from the Nvim installation directory.
+--- Run a git command from the Neovim config dir.
 ---@param args string|string[] the git arguments.
 ---@return string|nil # The result of the command or nil if unsuccessful.
 function git.cmd(args, ...)
@@ -222,7 +222,14 @@ end
 ---@param commits string[] an array like table of commit messages.
 ---@return string[] # An array like table of commits that are breaking.
 function git.breaking_changes(commits)
-  return vim.tbl_filter(git.is_breaking, commits)
+  local breaking_changes = vim.tbl_filter(git.is_breaking, commits)
+
+  -- optional: format the text.
+  for i, change in ipairs(breaking_changes) do
+    breaking_changes[i] = "- " .. change:gsub("format:%s*", ""):gsub('"', "")
+  end
+
+  return breaking_changes
 end
 
 --- Generate a table of commit messages for neovim's echo API with highlighting.
