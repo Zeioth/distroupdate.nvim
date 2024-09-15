@@ -27,7 +27,7 @@ If you are developing a Neovim distro, you can ship this plugin, and users will
 get updates from your distro GitHub repository when they run `:DistroUpdate`.
 
 ### Warning
-Currently, running `:DistroUpdate` will overwrite any uncommited change in your
+Running `:DistroUpdate` will overwrite any uncommited change in your
 local nvim config.
 
 ## How to install
