@@ -72,7 +72,7 @@ Options to configure what happen during the update.
 | **overwrite_uncommitted_changes** | `true`         | If true, uncommitted local changes will be lost. If false, the update will fail with an error.                                        |
 | **update_plugins**             | `true`         | If true, after `:DistroUpdate`, plugins will update automatically before closing Neovim. If false, you will have to update them manually using lazy. |
 | **on_update_show_changelog**   | `true`         | If true, after `:DistroUpdate`, the changes of the new version will be displayed.                                                     |
-| **on_update_auto_quit**        | `true`         | If true, after `:DistroUpdate`, Neovim will close automatically. If false, you will have to close it manually to ensure stability.     |
+| **on_update_auto_quit**        | `false`         | If true, after `:DistroUpdate`, Neovim will close automatically. If false, you will have to close it manually to ensure stability.     |
 | **auto_accept_prompts**        | `false`         | If true, all prompts in `:DistroUpdate` will be accepted automatically.                                                              |
 
 ### Versioning options
