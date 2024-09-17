@@ -79,7 +79,7 @@ function M.reload(quiet)
   if not was_modifiable then vim.opt.modifiable = false end
   if not quiet then -- if not quiet, then notify of result.
     if success then
-      M.notify("Nvim successfully reloaded", vim.log.levels.INFO)
+      M.notify("Nvim successfully reloaded.", vim.log.levels.INFO)
     else
       M.notify("Error reloading Nvim...", vim.log.levels.ERROR)
     end
@@ -135,7 +135,7 @@ end
 function M.os_path(path)
   if path == nil then return nil end
   -- Get the platform-specific path separator
-  local separator =  package.config:sub(1,1)
+  local separator =  string.sub(package.config, 1, 1)
   return string.gsub(path, '[/\\]', separator)
 end
 
