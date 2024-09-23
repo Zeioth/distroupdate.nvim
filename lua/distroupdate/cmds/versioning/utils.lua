@@ -14,7 +14,6 @@ local utils = require("distroupdate.utils")
 local M = {}
 
 --- Load the previous snapshot file as a Lua table and convert to a lookup table.
---- @param snapshot_filename string The name of the snapshot file.
 --- @return table # A key pair table as { <plugin_name> = { ... }, }
 function M.get_prev_snapshot_file()
   -- load the snapshot file as a Lua module (returns a table of plugins).

@@ -36,10 +36,6 @@ function M.set(opts)
   M.rollback_file = opts.rollback_file or utils.os_path(vim.fn.stdpath "cache" .. "/rollback.lua")
   M.snapshot_file = opts.snapshot_file or utils.os_path(vim.fn.stdpath "config" .. "/lua/lazy_snapshot.lua")
 
-  -- HOT RELOAD OPTS
-  M.hot_reload_callback = opts.hot_reload_exta_behavior or function() end
-  M.hot_reload_files = opts.hot_reload_files or {}
-
   -- expose the config as global
   vim.g.distroupdate_config = M
 end

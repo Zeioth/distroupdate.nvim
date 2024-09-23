@@ -84,13 +84,6 @@ Options to configure where to store the plugins file and the rollback file.
 | **snapshot_file**  | `<nvim_config_dir>/lua/lazy_snapshot.lua`      | File used by the command `:DistroFreezePluginVersions` to write the plugins. |
 | **rollback_file**  | `<nvim_cache_dir>/rollback.lua`                | Rollback file automatically triggered by `:DistroUpdate`. This file will be used when you use `:DistroUpdateRevert`. |
 
-### Hot reload options
-Options to configure the extra feature `hot reload`.
-
-| Name                 | Default value              | Description                                                                                                                          |
-|----------------------|----------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| **hot_reload_files**  | `{}`                       | The files included will be hot reloaded every time you write them. This way you can see the changes in your config reflected without having to restart nvim. For example: `{ my_nvim_opts_file, my_nvim_mappings_file}`. Be aware this feature is experimental, and might not work in all cases yet. |
-| **hot_reload_callback** | `function() end`         | (optional) Extra things to do after the files defined in the option `hot_reload_files` are reloaded. For example: This can be handy if you want to re-apply your theme. |
 
 ## Example of a real config
 
@@ -101,22 +94,9 @@ Options to configure the extra feature `hot reload`.
   "Zeioth/distroupdate.nvim",
   dependencies = { "nvim-lua/plenary.nvim" },
   event = "VeryLazy",
-  opts = function()
-    local config_dir = vim.fn.stdpath "config" .. "/lua/base/"
-    return {
-      remote = "origin",
-      channel = "stable",                                             -- stable/nightly.
-      release_tag = nil,                                              -- in case you wanna freeze a specific distro version.
-      hot_reload_files = {
-        config_dir .. "1-options.lua",
-        config_dir .. "4-mappings.lua"
-      },
-      hot_reload_callback = function()
-        vim.cmd ":silent! doautocmd ColorScheme"                     -- heirline colorscheme reload event.
-        vim.cmd(":silent! colorscheme " .. base.default_colorscheme) -- nvim     colorscheme reload command.
-      end
-    }
-  end
+  opts = {
+    channel = "stable"
+  }
 },
 ```
 
