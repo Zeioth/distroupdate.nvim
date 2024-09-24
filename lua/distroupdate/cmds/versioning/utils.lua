@@ -51,7 +51,7 @@ function M.get_plugins(prev_snapshot)
 
     -- 2. get current local git head from plugin_dir
     local plugin_dir_head = (function(plugin_dir)
-      local cmd_result = assert(utils.cmd("git -C " .. plugin_dir .. " rev-parse HEAD", false))
+      local cmd_result = assert(utils.run_cmd("git -C " .. plugin_dir .. " rev-parse HEAD", false))
       local commit_hash = cmd_result and vim.trim(cmd_result)
       return commit_hash
     end)(plugin.dir)
