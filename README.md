@@ -103,6 +103,16 @@ Options to configure where to store the plugins file and the rollback file.
 ## How to pass the plugins file to lazy
 If you've used `:DistroFreezePluginVersions` you have to pass the generated file to lazy, so it can use it. For that use the `spec` option. You can find an example [here](https://github.com/NormalNvim/NormalNvim/blob/main/lua/base/2-lazy.lua).
 
+## 🌟 Get involved
+One of the biggest challenges NormalNvim face is marketing. So share the project and tell your friends!
+[![Stargazers over time](https://starchart.cc/Zeioth/distroupdate.nvim.svg?variant=adaptive)](https://starchart.cc/Zeioth/distroupdate.nvim)
+
+## Fix a bug and send a PR to appear as contributor
+
+<a href="https://github.com/NormalNvim/NormalNvim/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=NormalNvim/NormalNvim" />
+</a>
+
 ## Credits
 The GPL3 lua libraries this plugin use come from NormalNvim (Full rewrite) and AstroNvim (Foundation and git wrapper).
 So please support both projects if you enjoy this plugin.

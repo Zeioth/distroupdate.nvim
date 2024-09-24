@@ -14,10 +14,9 @@
 local M = {}
 
 --- Run a shell command and capture the output and if the command
---- succeeded or failed
+--- succeeded or failed.
 ---@param cmd string|string[] The terminal command to execute
----@param show_error? boolean Whether or not to show an unsuccessful command
----                           as an error to the user
+---@param show_error? boolean If true, print errors if the command fail.
 ---@return string|nil # The result of a successfully executed command or nil
 function M.run_cmd(cmd, show_error)
   if type(cmd) == "string" then cmd = vim.split(cmd, " ") end
@@ -28,8 +27,7 @@ function M.run_cmd(cmd, show_error)
     vim.api.nvim_err_writeln(("Error running command %s\nError message:\n%s"):format(table.concat(cmd, " "), result))
   end
 
-  -- This line strips out escape sequences and control characters often present
-  -- in terminal output, such as ANSI escape codes used for coloring or formatting.
+  -- strip out terminal escape sequences and control characters.
   local stripped_result = result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "")
 
   return success and stripped_result or nil
