@@ -42,7 +42,7 @@ function git.cmd(args, ...)
   local utils = require("distroupdate.utils")
   local config_dir = vim.fn.stdpath("config")
   if type(args) == "string" then args = { args } end
-  return utils.cmd(vim.list_extend({ "git", "-C", config_dir }, args), ...)
+  return utils.run_cmd(vim.list_extend({ "git", "-C", config_dir }, args), ...)
 end
 
 --- Check if Neovim is able to reach the `git` command.

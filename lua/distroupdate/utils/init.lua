@@ -4,7 +4,7 @@
 --  General utility functions.
 
 --    Helpers:
---      -> cmd                   → Run a shell command and return true/false.
+--      -> run_cmd               → Run a shell command and return true/false.
 --      -> notify                → Send a notification with the plugin title.
 --      -> trigger_event         → Manually trigger a event.
 --      -> os_path               → Convert a path to / (UNIX) or \ (Windows).
@@ -14,11 +14,11 @@
 local M = {}
 
 --- Run a shell command and capture the output and if the command
---- succeeded or failed
----@param cmd string|string[] The terminal command to execute.
+--- succeeded or failed.
+---@param cmd string|string[] The terminal command to execute
 ---@param show_error? boolean If true, print errors if the command fail.
----@return string|nil # The result of a successfully executed command or nil.
-function M.cmd(cmd, show_error)
+---@return string|nil # The result of a successfully executed command or nil
+function M.run_cmd(cmd, show_error)
   if type(cmd) == "string" then cmd = vim.split(cmd, " ") end
   if vim.fn.has("win32") == 1 then cmd = vim.list_extend({ "cmd.exe", "/C" }, cmd) end
   local result = vim.fn.system(cmd)
