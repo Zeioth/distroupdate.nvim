@@ -27,8 +27,7 @@ function M.cmd(cmd, show_error)
     vim.api.nvim_err_writeln(("Error running command %s\nError message:\n%s"):format(table.concat(cmd, " "), result))
   end
 
-  -- This line strips out escape sequences and control characters often present
-  -- in terminal output, such as ANSI escape codes used for coloring or formatting.
+  -- strip out terminal escape sequences and control characters.
   local stripped_result = result:gsub("[\27\155][][()#;?%d]*[A-PRZcf-ntqry=><~]", "")
 
   return success and stripped_result or nil
