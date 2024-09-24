@@ -17,7 +17,7 @@ local versioning = require("distroupdate.cmds.versioning.utils")
 local M = {}
 
 
--- Helper function to generate a snapshot of the plugins currently installed.
+--- Helper function to generate a snapshot of the plugins currently installed.
 function M.freeze_plugin_versions()
   local prev_snapshot = versioning.get_prev_snapshot_file()
   local plugins = versioning.get_plugins(prev_snapshot)

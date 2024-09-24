@@ -13,8 +13,8 @@
 
 local M = {}
 
----Run a shell command and capture the output and whether the command
----succeeded or failed.
+--- Run a shell command and capture the output and whether the command
+--- succeeded or failed.
 --- @param cmd string|string[] The terminal command to execute.
 --- @param show_error? boolean If true, print errors if the command fails.
 --- @return string|nil # The result of a successfully executed command, or nil if it failed.
@@ -50,8 +50,7 @@ function M.run_cmd(cmd, show_error)
   return (success and cleaned_result) or nil
 end
 
-
----Serve a notification with a default title.
+--- Serve a notification with a default title.
 --- @param msg string The notification body.
 --- @param type number|nil The type of the notification (:help vim.log.levels).
 --- @param opts? table The nvim-notify options to use (:help notify-options).
@@ -64,7 +63,7 @@ function M.notify(msg, type, opts)
   end)
 end
 
----Convenient wapper to save code when we Trigger events.
+--- Convenient wapper to save code when we Trigger events.
 --- @param event string Name of the event.
 -- @usage To run a User event:   `trigger_event("User MyUserEvent")`
 -- @usage To run a Neovim event: `trigger_event("BufEnter")`
@@ -83,8 +82,8 @@ function M.trigger_event(event)
   end)
 end
 
----Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
----Then return the resulting string.
+--- Given a string, convert 'slash' to 'inverted slash' if on windows, and vice versa on UNIX.
+--- Then return the resulting string.
 --- @param path string A path string.
 --- @return string|nil,nil path A path string formatted for the current OS.
 function M.os_path(path)
@@ -95,14 +94,14 @@ function M.os_path(path)
 end
 
 
----if no parameter provided, echo a new line
----@param messages table A table like { {""}, {""}... }
+--- if no parameter provided, echo a new line
+--- @param messages table A table like { {""}, {""}... }
  function M.echo(messages)
   messages = messages or { { "\n" } }
   if type(messages) == "table" then vim.api.nvim_echo(messages, false, {}) end
 end
 
----Prompt the user to confirm.
+--- Prompt the user to confirm.
 --- @param message string A table like { {""}, {""}... }
 --- @param type? string It can be `Error`, `Warning`, or `Question`.
 function M.confirm_prompt(message, type)
