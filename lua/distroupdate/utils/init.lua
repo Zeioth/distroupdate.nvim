@@ -8,7 +8,7 @@
 --      -> notify                → Send a notification with the plugin title.
 --      -> trigger_event         → Manually trigger a event.
 --      -> os_path               → Convert a path to / (UNIX) or \ (Windows).
---      -> echo                  > Displaye a colorized message.
+--      -> echo                  → Displaye a colorized message.
 --      -> configm_prompt        → Asks the user for confirmation.
 
 local M = {}
